@@ -1,3 +1,5 @@
+import ProductImg from '../assets/Product.png';
+
 export interface Product {
     id: string;
     slug: string;
@@ -25,7 +27,7 @@ export const products: Product[] = [
         description: 'Rich, slow-crafted chocolate squares dusted with stardust.',
         price: 24.00,
         category: 'edibles',
-        image: 'https://images.unsplash.com/photo-1610452330455-2ff114002e3b?q=80&w=600&auto=format&fit=crop', // placeholder
+        image: ProductImg,
         isNew: true,
         potency: '10mg THC',
         rating: 4.9,
@@ -38,7 +40,7 @@ export const products: Product[] = [
         description: 'Light, chewy, and infused with premium matcha tea.',
         price: 18.00,
         category: 'edibles',
-        image: 'https://images.unsplash.com/photo-1542441991-38167f25902b?q=80&w=600&auto=format&fit=crop',
+        image: ProductImg,
         potency: '5mg THC',
         rating: 4.8,
         type: 'edible'
@@ -50,7 +52,7 @@ export const products: Product[] = [
         description: 'Whipped and crafted for easy indulgence.',
         price: 32.00,
         category: 'edibles',
-        image: 'https://images.unsplash.com/photo-1589781829631-4e78553229b1?q=80&w=600&auto=format&fit=crop',
+        image: ProductImg,
         potency: '100mg THC',
         rating: 5.0,
         type: 'edible'
@@ -62,7 +64,7 @@ export const products: Product[] = [
         description: 'Premium flower dipped in distillate and rolled in kief.',
         price: 45.00,
         category: 'flower',
-        image: 'https://images.unsplash.com/photo-1603909223429-69bb71a1f420?q=80&w=600&auto=format&fit=crop',
+        image: ProductImg,
         isNew: true,
         potency: '35% THC',
         rating: 4.7,
@@ -80,7 +82,7 @@ export const products: Product[] = [
         description: 'Full-spectrum extract with preserved terpenes.',
         price: 55.00,
         category: 'concentrates',
-        image: 'https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=600&auto=format&fit=crop',
+        image: ProductImg,
         potency: '78% THC',
         rating: 4.9,
         type: 'concentrate',
@@ -97,7 +99,7 @@ export const products: Product[] = [
         description: 'Calming tincture for your nightly ritual.',
         price: 38.00,
         category: 'oils',
-        image: 'https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?q=80&w=600&auto=format&fit=crop',
+        image: ProductImg,
         potency: '500mg CBD : 50mg THC',
         rating: 4.8,
         type: 'concentrate',
