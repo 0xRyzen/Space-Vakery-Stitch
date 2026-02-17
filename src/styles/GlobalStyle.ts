@@ -3,6 +3,28 @@ import { createGlobalStyle } from 'styled-components';
 export const GlobalStyle = createGlobalStyle`
   :root {
     --selection-color: ${props => props.theme.colors.pistachio}40;
+    --focus-ring: 2px solid ${props => props.theme.colors.pistachio};
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  body {
+    background-color: ${props => props.theme.colors.cream};
+    color: ${props => props.theme.colors.charcoal};
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  #root {
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 
   ::selection {
@@ -10,10 +32,10 @@ export const GlobalStyle = createGlobalStyle`
     color: ${props => props.theme.colors.charcoal};
   }
 
-  body {
-    background-color: ${props => props.theme.colors.cream};
-    color: ${props => props.theme.colors.charcoal};
-    overflow-x: hidden;
+  /* Focus Ring */
+  :focus {
+    outline: var(--focus-ring);
+    outline-offset: 2px;
   }
 
   /* Custom Scrollbar */

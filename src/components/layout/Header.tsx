@@ -1,86 +1,173 @@
-import { Link, NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 import { Search, User, ShoppingBag, Menu } from 'lucide-react';
-import { useCartStore } from '../../store/cart.store';
+import { useState } from 'react';
 
-const NavLinkStyled = styled(NavLink)`
-  position: relative;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: ${props => props.theme.colors.charcoal};
-  transition: color 0.2s;
-
-  &:hover {
-    color: ${props => props.theme.colors.midnight};
-  }
-
-  &.active::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: currentColor;
-  }
-`;
-
-const Logo = styled(Link)`
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.75rem;
-  letter-spacing: 0.05em;
-  font-weight: 700;
-  color: ${props => props.theme.colors.charcoal};
-`;
-
-export const Header = () => {
-    const { toggleCart, items } = useCartStore();
-    const cartCount = items.reduce((acc, item) => acc + item.qty, 0);
+export const Header = ({ className }: { className?: string }) => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <header className="sticky top-0 z-40 w-full transition-all duration-300 backdrop-blur-md bg-cream/70 border-b border-white/20">
-            <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-                {/* Mobile Menu (Hidden on Desktop) */}
-                <button className="md:hidden p-2">
-                    <Menu size={24} />
-                </button>
-
-                {/* Desktop Nav */}
-                <nav className="hidden md:flex items-center gap-8">
-                    <NavLinkStyled to="/shop/all">Shop</NavLinkStyled>
-                    <NavLinkStyled to="/shop/treats">Treats</NavLinkStyled>
-                    <NavLinkStyled to="/shop/concentrates">Concentrates</NavLinkStyled>
-                    <NavLinkStyled to="/about">About</NavLinkStyled>
-                    <NavLinkStyled to="/journal">Journal</NavLinkStyled>
-                    <NavLinkStyled to="/locations">Locations</NavLinkStyled>
-                </nav>
-
-                {/* Logo */}
-                <div className="absolute left-1/2 transform -translate-x-1/2">
-                    <Logo to="/">SPACE VAKERY</Logo>
+        <header className={`z-40 w-full transition-all duration-300 backdrop-blur-md bg-transparent mt-0 mb-0 ${className || ''}`}>
+            {/* Navigation */}
+            <nav className="fixed top-0 w-full z-50 px-3 py-4 sm:px-6 sm:py-6 md:px-12 flex justify-between items-center bg-transparent backdrop-blur-sm">
+                
+                {/* Left Navigation */}
+                <div className="hidden md:flex flex-1 items-center space-x-6">
+                    <NavLink className={({ isActive }) => `text-sm uppercase tracking-widest hover:text-primary transition-colors ${isActive ? 'text-primary font-bold' : 'text-charcoal/80'}`} to="/shop/all">
+                        Shop
+                    </NavLink>
+                    <NavLink className={({ isActive }) => `text-sm uppercase tracking-widest hover:text-primary transition-colors ${isActive ? 'text-primary font-bold' : 'text-charcoal/80'}`} to="/shop/treats">
+                        Treats
+                    </NavLink>
+                    <NavLink className={({ isActive }) => `text-sm uppercase tracking-widest hover:text-primary transition-colors ${isActive ? 'text-primary font-bold' : 'text-charcoal/80'}`} to="/shop/concentrates">
+                        Concentrates
+                    </NavLink>
                 </div>
 
-                {/* Right Actions */}
-                <div className="flex items-center gap-4">
-                    <Link to="/search" className="p-2 hover:bg-black/5 rounded-full transition hidden sm:block">
-                        <Search size={20} />
-                    </Link>
-                    <Link to="/profile" className="p-2 hover:bg-black/5 rounded-full transition hidden sm:block">
-                        <User size={20} />
-                    </Link>
-                    <button
-                        onClick={toggleCart}
-                        className="p-2 hover:bg-black/5 rounded-full transition relative"
-                    >
-                        <ShoppingBag size={20} />
-                        {cartCount > 0 && (
-                            <span className="absolute top-1 right-0 bg-charcoal text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">
-                                {cartCount}
-                            </span>
-                        )}
+                {/* Mobile Menu Toggle */}
+                <div className="md:hidden flex-1">
+                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 text-charcoal">
+                        <Menu className="w-6 h-6" />
                     </button>
                 </div>
-            </div>
+
+                {/* Centered Logo */}
+                <div className="flex-1 flex justify-center overflow-hidden">
+                    <a
+                        className="font-display text-lg sm:text-2xl md:text-3xl lg:text-4xl uppercase tracking-wider sm:tracking-widest text-charcoal hover:opacity-80 transition-opacity"
+                        href="/"
+                    >
+                        <span className="hidden sm:inline">SPACE VAKERY</span>
+                        <span className="sm:hidden">VAKERY</span>
+                    </a>
+                </div>
+
+                {/* Right Navigation & Icons */}
+                <div className="flex flex-1 justify-end items-center space-x-2 sm:space-x-4 md:space-x-8">
+                    <div className="hidden md:flex items-center space-x-6">
+                         <NavLink className={({ isActive }) => `text-sm uppercase tracking-widest hover:text-primary transition-colors ${isActive ? 'text-primary font-bold' : 'text-charcoal/80'}`} to="/about">
+                            About
+                        </NavLink>
+                        <NavLink className={({ isActive }) => `text-sm uppercase tracking-widest hover:text-primary transition-colors ${isActive ? 'text-primary font-bold' : 'text-charcoal/80'}`} to="/journal">
+                            Journal
+                        </NavLink>
+                        <NavLink className={({ isActive }) => `text-sm uppercase tracking-widest hover:text-primary transition-colors ${isActive ? 'text-primary font-bold' : 'text-charcoal/80'}`} to="/locations">
+                            Locations
+                        </NavLink>
+                    </div>
+
+                    <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4 text-charcoal">
+                        <NavLink className="hover:text-primary transition-colors hidden sm:block" to="/search">
+                            <Search className="w-4 h-4 sm:w-5 sm:h-5" />
+                        </NavLink>
+                        <NavLink className="hover:text-primary transition-colors" to="/profile">
+                            <User className="w-4 h-4 sm:w-5 sm:h-5" />
+                        </NavLink>
+                        <NavLink className="hover:text-primary transition-colors" to="/cart">
+                            <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
+                        </NavLink>
+                    </div>
+                </div>
+            </nav>
+
+             {/* Mobile Menu Dropdown (Simple implementation) */}
+             {isMenuOpen && (
+                <>
+                    {/* Overlay */}
+                    <div 
+                        className="fixed inset-0 bg-charcoal/20 backdrop-blur-sm z-39 md:hidden" 
+                        onClick={() => setIsMenuOpen(false)}
+                    />
+                    
+                    {/* Menu Panel */}
+                    <div className="fixed inset-0 top-[72px] sm:top-[88px] z-40 bg-cream/98 backdrop-blur-xl md:hidden flex flex-col overflow-y-auto">
+                        <div className="p-6 space-y-1">
+                            {/* Close Button */}
+                            <button 
+                                onClick={() => setIsMenuOpen(false)}
+                                className="absolute top-6 right-6 p-2 hover:bg-charcoal/10 rounded-full transition-colors"
+                                aria-label="Close menu"
+                            >
+                                <svg className="w-6 h-6 text-charcoal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+
+                            {/* Home */}
+                            <NavLink 
+                                className={({ isActive }) => `block text-lg font-medium uppercase tracking-wider py-3 px-4 rounded-lg transition-colors ${isActive ? 'bg-pistachio/20 text-pistachio' : 'text-charcoal hover:bg-charcoal/5'}`}
+                                to="/" 
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Home
+                            </NavLink>
+
+                            {/* Shop Section */}
+                            <div className="pt-2">
+                                <div className="text-xs uppercase tracking-widest font-bold text-charcoal/40 px-4 py-2">Shop</div>
+                                <NavLink 
+                                    className={({ isActive }) => `block text-lg font-medium uppercase tracking-wider py-3 px-4 rounded-lg transition-colors ${isActive ? 'bg-pistachio/20 text-pistachio' : 'text-charcoal hover:bg-charcoal/5'}`}
+                                    to="/shop/all" 
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    All Products
+                                </NavLink>
+                                <NavLink 
+                                    className={({ isActive }) => `block text-lg font-medium uppercase tracking-wider py-3 px-4 rounded-lg transition-colors ${isActive ? 'bg-pistachio/20 text-pistachio' : 'text-charcoal hover:bg-charcoal/5'}`}
+                                    to="/shop/treats" 
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    Treats
+                                </NavLink>
+                                <NavLink 
+                                    className={({ isActive }) => `block text-lg font-medium uppercase tracking-wider py-3 px-4 rounded-lg transition-colors ${isActive ? 'bg-pistachio/20 text-pistachio' : 'text-charcoal hover:bg-charcoal/5'}`}
+                                    to="/shop/concentrates" 
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    Concentrates
+                                </NavLink>
+                            </div>
+
+                            {/* Company Section */}
+                            <div className="pt-4 border-t border-charcoal/10 mt-4">
+                                <div className="text-xs uppercase tracking-widest font-bold text-charcoal/40 px-4 py-2">Company</div>
+                                <NavLink 
+                                    className={({ isActive }) => `block text-lg font-medium uppercase tracking-wider py-3 px-4 rounded-lg transition-colors ${isActive ? 'bg-pistachio/20 text-pistachio' : 'text-charcoal hover:bg-charcoal/5'}`}
+                                    to="/about" 
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    About
+                                </NavLink>
+                                <NavLink 
+                                    className={({ isActive }) => `block text-lg font-medium uppercase tracking-wider py-3 px-4 rounded-lg transition-colors ${isActive ? 'bg-pistachio/20 text-pistachio' : 'text-charcoal hover:bg-charcoal/5'}`}
+                                    to="/journal" 
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    Journal
+                                </NavLink>
+                                <NavLink 
+                                    className={({ isActive }) => `block text-lg font-medium uppercase tracking-wider py-3 px-4 rounded-lg transition-colors ${isActive ? 'bg-pistachio/20 text-pistachio' : 'text-charcoal hover:bg-charcoal/5'}`}
+                                    to="/locations" 
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    Locations
+                                </NavLink>
+                            </div>
+
+                            {/* Account Section */}
+                            <div className="pt-4 border-t border-charcoal/10 mt-4">
+                                <div className="text-xs uppercase tracking-widest font-bold text-charcoal/40 px-4 py-2">Account</div>
+                                <NavLink 
+                                    className={({ isActive }) => `block text-lg font-medium uppercase tracking-wider py-3 px-4 rounded-lg transition-colors ${isActive ? 'bg-pistachio/20 text-pistachio' : 'text-charcoal hover:bg-charcoal/5'}`}
+                                    to="/profile" 
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    My Profile
+                                </NavLink>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
         </header>
     );
 };

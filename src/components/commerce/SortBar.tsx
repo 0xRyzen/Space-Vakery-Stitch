@@ -3,10 +3,18 @@ import { GlassCard } from '../ui/GlassCard';
 
 const Bar = styled(GlassCard)`
   display: flex;
+  flex-direction: column;
+  gap: 1rem;
   justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
+  align-items: flex-start;
+  padding: 1rem;
   margin-bottom: 2rem;
+  
+  @media (min-width: 640px) {
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem 1.5rem;
+  }
 `;
 
 const Select = styled.select`

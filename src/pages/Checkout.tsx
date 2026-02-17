@@ -8,7 +8,11 @@ import { CheckCircle, ShieldCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
-  padding: 4rem 0;
+  padding: 2rem 0;
+  
+  @media (min-width: 768px) {
+    padding: 4rem 0;
+  }
 `;
 
 const FormInput = styled.input`
@@ -85,20 +89,20 @@ export const Checkout = () => {
     return (
         <Container>
             <div className="container mx-auto px-4">
-                <h1 className="font-serif text-4xl text-center mb-12">Checkout</h1>
+                <h1 className="font-serif text-3xl sm:text-4xl text-center mb-8 sm:mb-12">Checkout</h1>
 
                 <Stepper steps={steps} currentStep={step} />
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 max-w-6xl mx-auto">
                     {/* Left: Content */}
                     <div className="lg:col-span-2">
                         {step === 0 && (
                             <GlassCard>
-                                <h2 className="font-serif text-2xl mb-6">Shipping Information</h2>
-                                <div className="grid grid-cols-2 gap-4">
+                                <h2 className="font-serif text-xl sm:text-2xl mb-4 sm:mb-6">Shipping Information</h2>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <FormInput placeholder="First Name" />
                                     <FormInput placeholder="Last Name" />
-                                    <FormInput placeholder="Address" className="col-span-2" />
+                                    <FormInput placeholder="Address" className="col-span-1 sm:col-span-2" />
                                     <FormInput placeholder="City" />
                                     <FormInput placeholder="Zip Code" />
                                 </div>
@@ -107,7 +111,7 @@ export const Checkout = () => {
                                     <option value="standard">Standard Shipping ($10.00 / Free over $75)</option>
                                     <option value="express">Express Relay ($25.00)</option>
                                 </FormSelect>
-                                <div className="mt-8 flex justify-end">
+                                <div className="mt-6 sm:mt-8 flex justify-end">
                                     <GlassButton size="lg" onClick={handleNext}>Continue to Payment</GlassButton>
                                 </div>
                             </GlassCard>
@@ -115,9 +119,9 @@ export const Checkout = () => {
 
                         {step === 1 && (
                             <GlassCard>
-                                <h2 className="font-serif text-2xl mb-6">Secure Payment</h2>
-                                <div className="bg-pistachio/5 border border-pistachio/20 p-4 rounded-lg mb-6 flex items-center gap-3">
-                                    <ShieldCheck size={20} className="text-pistachio" />
+                                <h2 className="font-serif text-xl sm:text-2xl mb-4 sm:mb-6">Secure Payment</h2>
+                                <div className="bg-pistachio/5 border border-pistachio/20 p-3 sm:p-4 rounded-lg mb-6 flex items-center gap-3">
+                                    <ShieldCheck size={20} className="text-pistachio flex-shrink-0" />
                                     <span className="text-xs opacity-70">All transactions are encrypted and secure.</span>
                                 </div>
                                 <FormInput placeholder="Card Number" />
@@ -125,16 +129,16 @@ export const Checkout = () => {
                                     <FormInput placeholder="MM/YY" />
                                     <FormInput placeholder="CVC" />
                                 </div>
-                                <div className="mt-8 flex justify-between">
-                                    <GlassButton variant="secondary" onClick={handleBack}>Back</GlassButton>
-                                    <GlassButton size="lg" onClick={handleNext}>Review Order</GlassButton>
+                                <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-between gap-3">
+                                    <GlassButton variant="secondary" onClick={handleBack} className="w-full sm:w-auto">Back</GlassButton>
+                                    <GlassButton size="lg" onClick={handleNext} className="w-full sm:w-auto">Review Order</GlassButton>
                                 </div>
                             </GlassCard>
                         )}
 
                         {step === 2 && (
                             <GlassCard>
-                                <h2 className="font-serif text-2xl mb-6">Review & Complete</h2>
+                                <h2 className="font-serif text-xl sm:text-2xl mb-4 sm:mb-6">Review & Complete</h2>
                                 <div className="space-y-6">
                                     <div className="pb-6 border-b border-black/5">
                                         <h3 className="text-xs uppercase font-bold tracking-widest opacity-40 mb-2">Delivery to:</h3>
@@ -145,9 +149,9 @@ export const Checkout = () => {
                                         <p className="text-sm">Visa ending in 4242</p>
                                     </div>
                                 </div>
-                                <div className="mt-8 flex justify-between">
-                                    <GlassButton variant="secondary" onClick={handleBack}>Back</GlassButton>
-                                    <GlassButton size="lg" onClick={handlePlaceOrder}>Place Order</GlassButton>
+                                <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-between gap-3">
+                                    <GlassButton variant="secondary" onClick={handleBack} className="w-full sm:w-auto">Back</GlassButton>
+                                    <GlassButton size="lg" onClick={handlePlaceOrder} className="w-full sm:w-auto">Place Order</GlassButton>
                                 </div>
                             </GlassCard>
                         )}
@@ -155,8 +159,8 @@ export const Checkout = () => {
 
                     {/* Right: Summary */}
                     <div>
-                        <GlassCard className="sticky top-24">
-                            <h2 className="font-serif text-2xl mb-6">Order Summary</h2>
+                        <GlassCard className="lg:sticky lg:top-24">
+                            <h2 className="font-serif text-xl sm:text-2xl mb-4 sm:mb-6">Order Summary</h2>
                             <div className="space-y-4 mb-6">
                                 {items.map(item => (
                                     <div key={item.id} className="flex justify-between items-center text-sm">

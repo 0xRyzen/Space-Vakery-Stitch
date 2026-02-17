@@ -1,188 +1,305 @@
-import styled from 'styled-components';
-import { HeroSlider } from '../components/ui/HeroSlider';
-import { CategoryCard } from '../components/commerce/CategoryCard';
-import { ProductCard } from '../components/commerce/ProductCard';
-import { GlassCard } from '../components/ui/GlassCard';
-import { categories } from '../data/categories';
-import { products } from '../data/products';
-import { GlassButton } from '../components/ui/GlassButton';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import bannerImg from '../assets/images/spacevakery-banner.jpeg'; // Use the requested asset
+import { ProductCard } from '../components/commerce/ProductCard';
+import { PromoBanner } from '../components/ui/PromoBanner';
+import { products } from '../data/products';
+import { categories } from '../data/categories';
+import type { Category } from '../data/categories';
 
-const Section = styled.section`
-  padding: 6rem 0;
-  position: relative;
-`;
+// Helper for image placeholders if not provided
+const PLACEHOLDER_IMG = '../assets/images/spacevakery-mascot.png';
 
-const SectionHeader = styled.div`
-  text-align: center;
-  margin-bottom: 4rem;
-  
-  h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 3rem;
-    color: ${props => props.theme.colors.charcoal};
-    margin-bottom: 1rem;
-  }
-  
-  p {
-    color: ${props => props.theme.colors.midnight};
-    opacity: 0.6;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-`;
-
-const PromoGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  padding: 0 1rem;
-  
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-`;
-
-export const Home = () => {
+const Home = () => {
     const navigate = useNavigate();
+    const [currentSlide, setCurrentSlide] = useState(0);
+
+    const slides = [
+        {
+            type: 'hero',
+            title: "Crafted Edibles from a Softer Cosmos.",
+            content: (
+                <div className="relative z-20 text-center max-w-4xl mx-auto space-y-6 animate-fade-in-up -mt-8">
+                    <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-text-dark dark:text-text-light leading-[0.9] text-center">
+                        Crafted Edibles from a Softer Cosmos.
+                    </h1>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-8">
+                        <button onClick={() => navigate('/shop')} className="w-full sm:w-auto px-8 py-3 bg-primary/80 backdrop-blur-sm text-white font-sans text-lg rounded-pill hover:bg-primary transition-all shadow-lg shadow-primary/20">
+                            Shop Treats
+                        </button>
+                        <button onClick={() => navigate('/about')} className="w-full sm:w-auto px-8 py-3 bg-white/40 backdrop-blur-sm border border-white/60 text-text-dark font-sans text-lg rounded-pill hover:bg-white/60 transition-all shadow-lg flex items-center justify-center gap-2">
+                            Explore the Vakery <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            )
+        },
+        {
+            type: 'promo',
+            bgClass: 'bg-secondary/20',
+            content: (
+                <div className="text-center z-10">
+                    <span className="font-sans uppercase tracking-[0.2em] text-sm mb-4 block">Seasonal</span>
+                    <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-8xl mb-4 sm:mb-6">Limited Batch</h2>
+                    <button onClick={() => navigate('/shop/limited')} className="px-8 py-3 border border-text-dark rounded-pill hover:bg-text-dark hover:text-white transition-colors">View Collection</button>
+                </div>
+            )
+        },
+        {
+            type: 'promo',
+            bgClass: 'bg-primary/10',
+            content: (
+                <div className="text-center z-10">
+                    <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-8xl mb-4 sm:mb-6">Oils / Resin / Batter</h2>
+                    <p className="font-sans text-base sm:text-lg max-w-md mx-auto mb-6 sm:mb-8 opacity-70 px-4">Potent concentrates extracted with care.</p>
+                    <button onClick={() => navigate('/shop/concentrates')} className="px-8 py-3 bg-text-dark text-white rounded-pill hover:opacity-90 transition-opacity">Shop Concentrates</button>
+                </div>
+            )
+        }
+    ];
+
+    useEffect(() => {
+        // Auto-slide every 6 seconds
+        const interval = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % slides.length);
+        }, 6000);
+        return () => clearInterval(interval);
+    }, [slides.length]);
+
+    // Use specific products for New Arrivals if available, otherwise fallback or just slice first 4
+    const newArrivals = products.slice(0, 4); 
 
     return (
-        <>
-            <HeroSlider />
-
-            {/* Promotions Row */}
-            <div className="container mx-auto px-4 -mt-20 relative z-20">
-                <PromoGrid>
-                    <GlassCard variant="tinted-oat" className="flex flex-col items-center text-center p-8 cursor-pointer hover:shadow-lg transition">
-                        <h3 className="font-serif text-2xl mb-2">Limited Batch</h3>
-                        <p className="text-sm opacity-70 mb-4">Seasonal flavors that vanish.</p>
-                        <GlassButton size="sm" variant="ghost" onClick={() => navigate('/shop/limited')}>Shop Limited</GlassButton>
-                    </GlassCard>
-                    <GlassCard variant="tinted-pistachio" className="flex flex-col items-center text-center p-8 cursor-pointer hover:shadow-lg transition">
-                        <h3 className="font-serif text-2xl mb-2">New Arrivals</h3>
-                        <p className="text-sm opacity-70 mb-4">Fresh from the Vakery.</p>
-                        <GlassButton size="sm" variant="ghost" onClick={() => navigate('/shop/new')}>Shop New</GlassButton>
-                    </GlassCard>
-                    <GlassCard variant="tinted-blush" className="flex flex-col items-center text-center p-8 cursor-pointer hover:shadow-lg transition">
-                        <h3 className="font-serif text-2xl mb-2">Gifting</h3>
-                        <p className="text-sm opacity-70 mb-4">Treat someone special.</p>
-                        <GlassButton size="sm" variant="ghost" onClick={() => navigate('/shop/gifting')}>Shop Gifts</GlassButton>
-                    </GlassCard>
-                </PromoGrid>
+        <div className="bg-background-light dark:bg-background-dark text-text-dark dark:text-text-light transition-colors duration-300 font-sans antialiased overflow-x-hidden relative min-h-screen w-full max-w-full">
+            
+            {/* Ambient Background Stars (from HTML design) */}
+            <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-50 dark:opacity-80">
+                <div className="star top-10 left-1/4 animate-pulse"></div>
+                <div className="star top-20 right-1/3 animate-pulse delay-75"></div>
+                <div className="star bottom-32 left-10 animate-pulse delay-150"></div>
+                <div className="absolute top-40 right-10 text-primary opacity-30 text-2xl">✦</div>
+                <div className="absolute top-1/3 left-20 text-secondary opacity-40 text-xl">✧</div>
+                <div className="absolute bottom-1/4 right-32 text-primary opacity-20 text-3xl">✦</div>
+                <div className="star top-[15%] left-[10%] animate-pulse delay-300"></div>
+                <div className="star top-[60%] right-[15%] animate-pulse delay-500"></div>
+                <div className="absolute top-[80%] left-[40%] text-primary opacity-20 text-lg">✦</div>
             </div>
 
-            {/* Shop by Category */}
-            <Section>
-                <div className="container mx-auto px-4">
-                    <SectionHeader>
-                        <h2>Shop by Category</h2>
-                        <p>Explore our cosmic collection of infused delights.</p>
-                    </SectionHeader>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {categories.map(cat => (
-                            <CategoryCard key={cat.id} category={cat} />
-                        ))}
-                    </div>
-                </div>
-            </Section>
-
-            {/* New Arrivals */}
-            <Section className="bg-white/30 backdrop-blur-sm">
-                <div className="container mx-auto px-4">
-                    <SectionHeader>
-                        <h2>New Arrivals</h2>
-                        <p>Freshly baked from the nebula.</p>
-                    </SectionHeader>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {/* Duplicating products to simulate 6-8 items for now since we only have 6 */}
-                        {[...products, ...products.slice(0, 2)].map((product, idx) => (
-                            <div key={`${product.id}-${idx}`} className="relative group">
-                                <span className="absolute top-2 left-2 z-10 bg-pistachio text-charcoal text-[10px] uppercase font-bold px-2 py-1 rounded-full tracking-wider">
-                                    New
-                                </span>
-                                <ProductCard product={product} />
+            {/* Hero Slider */}
+            <header className="relative h-[calc(100vh-80px)] min-h-[400px] sm:min-h-[500px] md:min-h-[600px] w-full overflow-hidden">
+                <div 
+                    className="absolute inset-0 flex transition-transform duration-700 ease-in-out" 
+                    style={{ width: `${slides.length * 100}%`, transform: `translateX(-${currentSlide * (100 / slides.length)}%)` }}
+                >
+                    {/* Slide 1 - Hero Image */}
+                    <div className="w-1/3 h-full flex flex-col justify-center items-center px-4 sm:px-6 bg-cosmic-light dark:bg-cosmic-dark relative bg-no-repeat bg-cover">
+                        <div className="relative w-full max-w-2xl mx-auto mb-4 md:mb-8 z-10">
+                            <div className="relative w-full h-48 sm:h-64 md:h-80 lg:h-96 flex items-center justify-center float-animation">
+                                <img 
+                                    alt="Space Vakery Banner" 
+                                    className="object-cover h-full w-full drop-shadow-2xl" 
+                                    src={bannerImg} 
+                                />
+                                <div className="absolute bottom-0 w-full h-32 bg-gradient-to-t from-background-light dark:from-background-dark via-background-light/40 dark:via-background-dark/40 to-transparent blur-xl"></div>
                             </div>
-                        ))}
+                        </div>
+                        {slides[0].content}
+                    </div>
+
+                    {/* Slide 2 - Limited Batch */}
+                    <div className="w-1/3 h-full flex flex-col justify-center items-center bg-secondary/20 relative">
+                        {slides[1].content}
+                    </div>
+
+                    {/* Slide 3 - Oils */}
+                    <div className="w-1/3 h-full flex flex-col justify-center items-center bg-primary/10 relative">
+                        {slides[2].content}
                     </div>
                 </div>
-            </Section>
 
-            {/* Featured Treats */}
-            <Section>
-                <div className="container mx-auto px-4">
-                    <SectionHeader>
-                        <h2>Featured Treats</h2>
-                        <p>Our most beloved creations, crafted for potency and pleasure.</p>
-                    </SectionHeader>
+                {/* Dots Navigation */}
+                <div className="absolute bottom-8 left-0 right-0 flex justify-center space-x-3 z-30">
+                    {slides.map((_, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => setCurrentSlide(idx)}
+                            className={`w-3 h-3 rounded-full transition-all ${currentSlide === idx ? 'bg-text-dark opacity-100' : 'bg-text-dark opacity-30 hover:opacity-60'}`}
+                        />
+                    ))}
+                </div>
+            </header>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {products.slice(0, 3).map(product => (
+            {/* Top Banner */}
+            <PromoBanner 
+                message="Free shipping over $75 · Vegan · Plastic-free packaging"
+                variant="default"
+                className="relative z-30"
+            />
+
+            {/* Promo Cards Row */}
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 mt-6 sm:mt-8 relative z-20">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+                    <div onClick={() => navigate('/shop/limited')} className="glass-card rounded-2xl p-6 flex items-center justify-between group cursor-pointer hover:bg-white/50 transition-colors">
+                        <div>
+                            <h3 className="font-display text-2xl">Limited Batch</h3>
+                            <span className="text-xs uppercase tracking-wider opacity-60">Seasonal Drops</span>
+                        </div>
+                        <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </div>
+                    <div onClick={() => navigate('/shop/new')} className="glass-card rounded-2xl p-6 flex items-center justify-between group cursor-pointer hover:bg-white/50 transition-colors">
+                        <div>
+                            <h3 className="font-display text-2xl">New Arrivals</h3>
+                            <span className="text-xs uppercase tracking-wider opacity-60">Fresh from the oven</span>
+                        </div>
+                        <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </div>
+                    <div onClick={() => navigate('/shop/gifting')} className="glass-card rounded-2xl p-6 flex items-center justify-between group cursor-pointer hover:bg-white/50 transition-colors">
+                        <div>
+                            <h3 className="font-display text-2xl">Gifting</h3>
+                            <span className="text-xs uppercase tracking-wider opacity-60">Curated Bundles</span>
+                        </div>
+                        <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">redeem</span>
+                    </div>
+                </div>
+            </section>
+
+            {/* Shop by Category */}
+            <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 max-w-[1400px] mx-auto z-10 relative">
+                <div className="text-center mb-8 sm:mb-12 md:mb-16">
+                    <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-text-dark dark:text-text-light mb-2">Shop by Category</h2>
+                    <p className="text-sm uppercase tracking-widest opacity-60 font-sans">Find your frequency</p>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                    {categories.map((cat: Category, idx: number) => (
+                        <div key={idx} onClick={() => navigate(`/shop/${cat.name.toLowerCase().replace(/ /g, '-')}`)} className="group glass-card rounded-xl p-4 flex flex-col items-center hover:-translate-y-1 transition-transform duration-300 cursor-pointer">
+                            <div className={`w-full aspect-square mb-4 rounded-full overflow-hidden flex items-center justify-center ${cat.icon ? (cat.name === 'Flower' ? 'bg-primary/10' : 'bg-secondary/10') : 'bg-white/20'}`}>
+                                {cat.img ? (
+                                    <img alt={cat.name} className="w-full h-full object-cover opacity-90 group-hover:scale-110 transition-transform duration-500" src={PLACEHOLDER_IMG} />
+                                ) : (
+                                    <span className={`material-symbols-outlined text-4xl opacity-60 ${cat.name === 'Flower' ? 'text-primary' : 'text-primary'}`}>{cat.icon}</span>
+                                )}
+                            </div>
+                            <h3 className="font-display text-xl text-center">{cat.name}</h3>
+                            <p className="text-[10px] uppercase tracking-wider opacity-60 text-center mt-1">{cat.desc}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* New Arrivals Grid (Using ProductCard Component) */}
+            <section className="py-10 sm:py-12 md:py-16 bg-white/30 backdrop-blur-sm border-y border-white/20">
+                <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12">
+                    <div className="text-center mb-8 sm:mb-10 md:mb-12"> 
+                        <h2 className="font-display text-2xl sm:text-3xl md:text-4xl">New Arrivals</h2>
+                        <p className="text-sm opacity-60 mt-2">Fresh batches from the lab.</p>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-x-6 gap-y-10">
+                        {newArrivals.map(product => (
                             <ProductCard key={product.id} product={product} />
                         ))}
                     </div>
-
-                    <div className="text-center mt-12">
-                        <GlassButton size="lg" variant="secondary" onClick={() => navigate('/shop/all')}>
-                            View All Products
-                        </GlassButton>
+                    
+                    <div className="mt-8 text-center md:hidden">
+                        <button className="inline-block px-8 py-3 border border-text-dark rounded-pill text-xs font-bold uppercase tracking-widest">View All</button>
                     </div>
                 </div>
-            </Section>
+            </section>
 
-            {/* Journal Preview */}
-            <Section className="bg-oat/20">
-                <div className="container mx-auto px-4">
-                    <SectionHeader>
-                        <h2>The Cosmic Journal</h2>
-                        <p>Notes from the kitchen and beyond.</p>
-                    </SectionHeader>
+            {/* Featured Treats Large Cards */}
+            <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto z-10 relative">
+                <div className="text-center mb-10 sm:mb-12 md:mb-16">
+                    <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-text-dark dark:text-text-light mb-2">Featured Treats</h2>
+                    <div className="w-16 h-1 bg-primary mx-auto mt-6 rounded-full opacity-50"></div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="glass-card rounded-3xl p-0 flex flex-col items-center text-center overflow-hidden group">
+                        <div className="w-full aspect-[4/3] bg-transparent pt-8 px-8 flex items-end justify-center relative">
+                            <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <img alt="Cosmic cupcake" className="object-cover w-3/4 h-auto drop-shadow-xl transform group-hover:scale-105 transition-transform duration-500" src={PLACEHOLDER_IMG} />
+                        </div>
+                        <div className="p-8 w-full bg-white/40 backdrop-blur-md border-t border-white/40 flex-1 flex flex-col">
+                            <h3 className="font-display text-2xl md:text-3xl text-text-dark dark:text-text-light mb-2">Cosmic Brownies</h3>
+                            <p className="text-sm font-sans text-text-dark/60 dark:text-text-light/60 mb-6 max-w-xs mx-auto flex-1">
+                                Rich chocolate ganache infused with stardust.
+                            </p>
+                            <button className="inline-block px-8 py-3 bg-text-dark text-white text-xs font-bold tracking-widest rounded-pill hover:bg-opacity-80 transition-all uppercase">
+                                Shop All &gt;
+                            </button>
+                        </div>
+                    </div>
+                     <div className="glass-card rounded-3xl p-0 flex flex-col items-center text-center overflow-hidden group">
+                        <div className="w-full aspect-[4/3] bg-transparent pt-8 px-8 flex items-end justify-center relative">
+                            <div className="absolute inset-0 bg-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <img alt="Matcha marshmallows" className="object-cover w-3/4 h-auto drop-shadow-xl rounded-xl transform group-hover:scale-105 transition-transform duration-500" src={PLACEHOLDER_IMG} />
+                        </div>
+                        <div className="p-8 w-full bg-white/40 backdrop-blur-md border-t border-white/40 flex-1 flex flex-col">
+                            <h3 className="font-display text-2xl md:text-3xl text-text-dark dark:text-text-light mb-2">Matcha Marshmallows</h3>
+                            <p className="text-sm font-sans text-text-dark/60 dark:text-text-light/60 mb-6 max-w-xs mx-auto flex-1">
+                                Ethereal matcha dust on soft clouds.
+                            </p>
+                            <button className="inline-block px-8 py-3 bg-text-dark text-white text-xs font-bold tracking-widest rounded-pill hover:bg-opacity-80 transition-all uppercase">
+                                Shop All &gt;
+                            </button>
+                        </div>
+                    </div>
+                     <div className="glass-card rounded-3xl p-0 flex flex-col items-center text-center overflow-hidden group">
+                        <div className="w-full aspect-[4/3] bg-transparent pt-8 px-8 flex items-end justify-center relative">
+                            <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <img alt="Biscoff butter jar" className="object-cover w-3/4 h-auto drop-shadow-xl rounded-xl transform group-hover:scale-105 transition-transform duration-500" src={PLACEHOLDER_IMG} />
+                        </div>
+                        <div className="p-8 w-full bg-white/40 backdrop-blur-md border-t border-white/40 flex-1 flex flex-col">
+                            <h3 className="font-display text-2xl md:text-3xl text-text-dark dark:text-text-light mb-2">From Batter to Batch</h3>
+                            <p className="text-sm font-sans text-text-dark/60 dark:text-text-light/60 mb-6 max-w-xs mx-auto flex-1">
+                                Learn how our cannabis flower is processed.
+                            </p>
+                            <button className="inline-block px-8 py-3 bg-transparent border border-text-dark text-text-dark text-xs font-bold tracking-widest rounded-pill hover:bg-text-dark hover:text-white transition-all uppercase">
+                                Read Article
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             {/* Journal Section */}
+            <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-cosmic-light/30">
+                <div className="max-w-7xl mx-auto">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 sm:mb-10 md:mb-12 px-2 gap-4">
+                        <h2 className="font-display text-3xl sm:text-4xl">The Vakery Journal</h2>
+                        <a href="/journal" className="hidden md:block text-sm underline decoration-1 underline-offset-4 hover:text-primary">Read all stories</a>
+                    </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <GlassCard className="group cursor-pointer overflow-hidden p-0 h-[400px] relative">
-                            <img
-                                src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=800&auto=format&fit=crop"
-                                alt="Dosing"
-                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                            />
-                            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors" />
-                            <div className="absolute bottom-0 left-0 w-full p-8 text-white relative z-10">
-                                <span className="text-xs uppercase tracking-widest mb-2 block text-pistachio">Recipe</span>
-                                <h3 className="font-serif text-2xl mb-2">How to dose responsibly</h3>
-                                <p className="text-sm opacity-80 line-clamp-2">A guide to finding your perfect orbit without losing gravity.</p>
+                        <article className="group cursor-pointer" onClick={() => navigate('/journal/1')}>
+                            <div className="overflow-hidden rounded-2xl mb-4 h-64 relative">
+                                <img alt="Abstract space" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASeC-CvbQRLqno9muOKMMMEVufwjyDuiKPZfDajjlCm6h9EQGx6Zoty7yC7k-n0O_OFjzdwRXykN0wnHMqDV8jOlEt1OUTjtJOOJf5IFePD4Ra7SnsCTd9JcHRTV99-REVLmLhlBw8C8MfzqOuW8qoC403zi6x8riI-LU4ZVjhopRJUvM3sOitauXpCYs_mQeRndhQuxaDy44RFbG3Bu87ycXuSHBMrXhWyEwxPprSmdIPd7Qke46OTOU2Da1gHztnszEH_f9y6hzY"/>
+                                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
                             </div>
-                        </GlassCard>
-
-                        <GlassCard className="group cursor-pointer overflow-hidden p-0 h-[400px] relative">
-                            <img
-                                src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?q=80&w=800&auto=format&fit=crop"
-                                alt="Baking"
-                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                            />
-                            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors" />
-                            <div className="absolute bottom-0 left-0 w-full p-8 text-white relative z-10">
-                                <span className="text-xs uppercase tracking-widest mb-2 block text-pistachio">Culture</span>
-                                <h3 className="font-serif text-2xl mb-2">The art of slow baking</h3>
-                                <p className="text-sm opacity-80 line-clamp-2">Why we take 48 hours to infuse our signature caramel.</p>
+                            <span className="text-[10px] uppercase tracking-widest font-bold text-primary">Education</span>
+                            <h3 className="font-display text-2xl mt-2 mb-2 group-hover:text-primary transition-colors">Understanding Terpenes</h3>
+                            <p className="text-sm opacity-60 line-clamp-2">A guide to the aromatic compounds that determine the scent and effect of your edibles.</p>
+                        </article>
+                         <article className="group cursor-pointer" onClick={() => navigate('/journal/2')}>
+                            <div className="overflow-hidden rounded-2xl mb-4 h-64 relative">
+                                <img alt="Baking process" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmZQoJAdU7oewpKLr4QKGWs37zPGuqGk2SyevbvzoYH_eA-PjjGiQgdYRRxmex9UoY7PWrEV6HlZsyRZPHwtnFn3TslRlBySAWJ15x4eDSL4BVFJYhy-e526GAFlXrvzEtTai7rIup2UjZ_1VMjQFzmKRfpc1zXO1PkYG-s2B-tN9tfFoBcp6eiDebMCG0NfhMcsJXZDQrb6LhofPaVbGxe5cn8IvfMphhDSB73HZMkLaelPVOS17Wc7VOF2dtnrA0VAZvlE3LunJJ"/>
+                                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
                             </div>
-                        </GlassCard>
-
-                        <GlassCard className="group cursor-pointer overflow-hidden p-0 h-[400px] relative">
-                            <img
-                                src="https://images.unsplash.com/photo-1615485499978-508c5c7ce1a5?q=80&w=800&auto=format&fit=crop"
-                                alt="Terpenes"
-                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                            />
-                            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors" />
-                            <div className="absolute bottom-0 left-0 w-full p-8 text-white relative z-10">
-                                <span className="text-xs uppercase tracking-widest mb-2 block text-pistachio">Guide</span>
-                                <h3 className="font-serif text-2xl mb-2">Terpenes 101</h3>
-                                <p className="text-sm opacity-80 line-clamp-2">Understanding the flavor profiles of our strains.</p>
+                            <span className="text-[10px] uppercase tracking-widest font-bold text-primary">Recipes</span>
+                            <h3 className="font-display text-2xl mt-2 mb-2 group-hover:text-primary transition-colors">Spring Infusions</h3>
+                            <p className="text-sm opacity-60 line-clamp-2">Three light and airy recipes to welcome the changing seasons with a gentle buzz.</p>
+                        </article>
+                         <article className="group cursor-pointer" onClick={() => navigate('/journal/3')}>
+                            <div className="overflow-hidden rounded-2xl mb-4 h-64 relative">
+                                <img alt="Cosmic art" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeU6ZdpG1Q_8Pg0-IhLEAiOWmUm8Xe4tiJLOkpJ56MZeI3pkdFgK8Nz9JCoOZl68O5gPobjXqMrdcWDcngD4unMxc8THeMM7eCOjUOaomjTQoTByONh1rOlXBNxOxeR4Q3P1odNU7s9HH1eOnJcs-Ci6fnKPCwM7qDEGKJLojZlFq1DJD3GDQrignKRYfl4bstnmAGB5shxQK1lQZPsnGVaigIoEHpoVfeytb8r-RgW1uPSqUkctRFWAp7Yt7a2fsFCPtJ13d4ocVC"/>
+                                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
                             </div>
-                        </GlassCard>
+                            <span className="text-[10px] uppercase tracking-widest font-bold text-primary">Community</span>
+                            <h3 className="font-display text-2xl mt-2 mb-2 group-hover:text-primary transition-colors">Star Gazing & Grazing</h3>
+                            <p className="text-sm opacity-60 line-clamp-2">Join us for our monthly community event under the stars.</p>
+                        </article>
                     </div>
                 </div>
-            </Section>
-        </>
+            </section>
+        </div>
     );
 };
+
+export default Home;

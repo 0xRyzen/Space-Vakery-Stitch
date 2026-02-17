@@ -2,22 +2,22 @@ import { GlassCard } from '../components/ui/GlassCard';
 
 export const Profile = () => {
     return (
-        <div className="container mx-auto px-4 py-12">
-            <h1 className="font-serif text-4xl mb-8">My Account</h1>
+        <div className="container mx-auto px-4 py-8 sm:py-10 md:py-12">
+            <h1 className="font-serif text-3xl sm:text-4xl mb-6 sm:mb-8">My Account</h1>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 sm:gap-8">
                 {/* Sidebar */}
-                <div className="space-y-2">
-                    <div className="font-medium p-2 bg-white/40 rounded cursor-pointer">Orders</div>
-                    <div className="opacity-60 p-2 cursor-pointer hover:opacity-100">Addresses</div>
-                    <div className="opacity-60 p-2 cursor-pointer hover:opacity-100">Account Details</div>
-                    <div className="opacity-60 p-2 cursor-pointer hover:opacity-100">Logout</div>
+                <div className="flex md:flex-col space-x-2 md:space-x-0 md:space-y-2 overflow-x-auto md:overflow-x-visible pb-2 md:pb-0">
+                    <div className="font-medium p-2 bg-white/40 rounded cursor-pointer whitespace-nowrap">Orders</div>
+                    <div className="opacity-60 p-2 cursor-pointer hover:opacity-100 whitespace-nowrap">Addresses</div>
+                    <div className="opacity-60 p-2 cursor-pointer hover:opacity-100 whitespace-nowrap">Account Details</div>
+                    <div className="opacity-60 p-2 cursor-pointer hover:opacity-100 whitespace-nowrap">Logout</div>
                 </div>
 
                 {/* Content */}
                 <div className="md:col-span-3 space-y-6">
                     <GlassCard>
-                        <h2 className="font-serif text-2xl mb-4">Recent Orders</h2>
+                        <h2 className="font-serif text-xl sm:text-2xl mb-4">Recent Orders</h2>
                         <div className="overflow-x-auto">
                             <table className="w-full text-left">
                                 <thead className="border-b border-black/10 text-xs uppercase tracking-wider opacity-60">

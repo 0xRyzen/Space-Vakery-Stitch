@@ -10,15 +10,23 @@ import { useState } from 'react';
 import { Minus, Plus, Star } from 'lucide-react';
 
 const PageContainer = styled.div`
-  padding: 4rem 0;
+  padding: 2rem 0;
+  
+  @media (min-width: 768px) {
+    padding: 4rem 0;
+  }
 `;
 
 const ImageGallery = styled.div`
-  border-radius: 20px;
+  border-radius: 16px;
   overflow: hidden;
   background: #f0f0f0;
   aspect-ratio: 1;
   position: relative;
+  
+  @media (min-width: 768px) {
+    border-radius: 20px;
+  }
   
   img {
     width: 100%;
@@ -141,10 +149,10 @@ export const ProductDetail = () => {
     return (
         <PageContainer>
             <div className="container mx-auto px-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-12 md:mb-20">
                     {/* Left: Gallery */}
                     <div className="space-y-4">
-                        <GlassCard opacity={0.1} className="p-4">
+                        <GlassCard opacity={0.1} className="p-3 md:p-4">
                             <ImageGallery>
                                 <img src={product.image} alt={product.name} />
                             </ImageGallery>
@@ -163,13 +171,13 @@ export const ProductDetail = () => {
                             </div>
                         </div>
 
-                        <h1 className="font-serif text-5xl text-charcoal mb-4">{product.name}</h1>
-                        <p className="text-xl text-midnight font-serif italic mb-8 opacity-70">{product.description}</p>
+                        <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-charcoal mb-3 md:mb-4">{product.name}</h1>
+                        <p className="text-lg sm:text-xl text-midnight font-serif italic mb-6 md:mb-8 opacity-70">{product.description}</p>
 
-                        <p className="text-3xl font-medium text-charcoal mb-8">${product.price.toFixed(2)}</p>
+                        <p className="text-2xl sm:text-3xl font-medium text-charcoal mb-6 md:mb-8">${product.price.toFixed(2)}</p>
 
-                        <div className="flex items-center gap-6 mb-8">
-                            <div className="flex items-center gap-4 bg-white/50 rounded-full px-4 py-2 border border-white/40">
+                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6 mb-6 md:mb-8">
+                            <div className="flex items-center gap-4 bg-white/50 rounded-full px-4 py-3 border border-white/40 justify-center sm:justify-start">
                                 <button onClick={() => setQty(Math.max(1, qty - 1))} className="opacity-50 hover:opacity-100">
                                     <Minus size={18} />
                                 </button>
@@ -178,7 +186,7 @@ export const ProductDetail = () => {
                                     <Plus size={18} />
                                 </button>
                             </div>
-                            <GlassButton size="lg" onClick={handleAddToCart} className="flex-1">
+                            <GlassButton size="lg" onClick={handleAddToCart} className="flex-1 w-full sm:w-auto">
                                 Add to Cart
                             </GlassButton>
                         </div>

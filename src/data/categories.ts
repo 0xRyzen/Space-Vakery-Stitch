@@ -1,4 +1,4 @@
-import ProductImg from '../assets/Product.png';
+import ProductImg from '../assets/images/spacevakery-mascot.png';
 
 export interface Category {
     id: string;
@@ -6,6 +6,9 @@ export interface Category {
     slug: string;
     description: string;
     image: string;
+    icon?: string; // Optional icon property
+    img?: string; // Optional img property
+    desc?: string; // Optional desc property
 }
 
 export const categories: Category[] = [

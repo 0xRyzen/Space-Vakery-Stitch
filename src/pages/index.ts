@@ -1,4 +1,4 @@
-export * from './Home';
+export { default as Home } from './Home';
 export * from './ProductListing';
 export * from './ProductDetail';
 export * from './Checkout';

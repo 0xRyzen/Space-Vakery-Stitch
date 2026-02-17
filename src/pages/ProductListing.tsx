@@ -8,30 +8,36 @@ import { FilterPanel } from '../components/commerce/FilterPanel';
 import { SortBar } from '../components/commerce/SortBar';
 
 const Header = styled.div`
-  padding: 4rem 0;
+  padding: 3rem 0 4rem;
   text-align: center;
   background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+  
+  @media (max-width: 768px) {
+    padding: 2rem 0 3rem;
+  }
 `;
 
 const Title = styled.h1`
   font-family: 'Cormorant Garamond', serif;
-  font-size: 4rem;
+  font-size: clamp(2.5rem, 8vw, 4rem);
   color: ${props => props.theme.colors.charcoal};
   margin-bottom: 1rem;
   text-transform: capitalize;
 `;
 
 const Desc = styled.p`
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 3vw, 1.25rem);
   color: ${props => props.theme.colors.midnight};
   opacity: 0.7;
   max-width: 600px;
   margin: 0 auto;
+  padding: 0 1rem;
 `;
 
 export const ProductListing = () => {
     const { category } = useParams();
     const [sortBy, setSortBy] = useState('featured');
+    const [showFilters, setShowFilters] = useState(false);
 
     const activeCategory = categories.find(c => c.slug === category);
 
@@ -64,9 +70,17 @@ export const ProductListing = () => {
             </Header>
 
             <div className="container mx-auto px-4 pb-20">
+                {/* Mobile Filter Toggle */}
+                <button 
+                    onClick={() => setShowFilters(!showFilters)}
+                    className="lg:hidden mb-4 px-4 py-2 bg-white/50 backdrop-blur-sm rounded-lg border border-white/40 text-sm font-medium"
+                >
+                    {showFilters ? 'Hide Filters' : 'Show Filters'}
+                </button>
+                
                 <div className="flex flex-col lg:flex-row gap-8">
                     {/* Sidebar */}
-                    <aside className="w-full lg:w-64 flex-shrink-0">
+                    <aside className={`w-full lg:w-64 flex-shrink-0 ${showFilters ? 'block' : 'hidden lg:block'}`}>
                         <FilterPanel />
                     </aside>
 

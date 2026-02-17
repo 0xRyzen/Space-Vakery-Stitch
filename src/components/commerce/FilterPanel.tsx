@@ -2,15 +2,20 @@ import styled from 'styled-components';
 import { GlassCard } from '../ui/GlassCard';
 
 const Section = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   
   h4 {
     font-family: 'Inter', sans-serif;
     font-weight: 600;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     font-size: 0.875rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    color: ${props => props.theme.colors.charcoal};
+  }
+  
+  @media (max-width: 1024px) {
+    margin-bottom: 1.25rem;
   }
 `;
 
@@ -38,7 +43,7 @@ const FilterOption = styled.label`
 
 export const FilterPanel = () => {
     return (
-        <GlassCard className="sticky top-24">
+        <GlassCard className="lg:sticky lg:top-24">
             <Section>
                 <h4>Price Range</h4>
                 <div className="flex flex-col gap-2">

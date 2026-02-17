@@ -1,81 +1,103 @@
-import { useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import { useMemo } from 'react';
+import styled, { keyframes } from 'styled-components';
 
-const Canvas = styled.canvas`
+const twinkle = keyframes`
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.2);
+  }
+`;
+
+const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
   pointer-events: none;
+  overflow: hidden;
+  opacity: 0.6;
 `;
 
-interface Star {
-    x: number;
-    y: number;
-    size: number;
-    opacity: number;
-    speed: number;
+const Sparkle = styled.div<{ 
+  $x: number; 
+  $y: number; 
+  $size: number; 
+  $delay: number; 
+  $duration: number;
+  $color: string;
+}>`
+  position: absolute;
+  left: ${p => p.$x}%;
+  top: ${p => p.$y}%;
+  width: ${p => p.$size}px;
+  height: ${p => p.$size}px;
+  animation: ${twinkle} ${p => p.$duration}s ease-in-out infinite;
+  animation-delay: ${p => p.$delay}s;
+  
+  /* Diamond/star shape */
+  transform: rotate(45deg); /* Ensures diamond shape */
+  background: ${p => p.$color};
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  
+  /* Glow effect */
+  box-shadow: 0 0 ${p => p.$size * 0.3}px ${p => p.$color};
+`;
+
+// Colors that contrast well on cream background  
+const colors = [
+  'rgba(94, 75, 110, 0.4)',   // Dusty Plum
+  'rgba(139, 175, 140, 0.4)', // Soft Matcha
+  'rgba(168, 195, 160, 0.4)', // Muted Pistachio
+  'rgba(180, 140, 100, 0.4)', // Warm brown
+  'rgba(120, 100, 140, 0.4)', // Soft purple
+];
+
+interface SparkleData {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  delay: number;
+  duration: number;
+  color: string;
 }
 
 export const Starfield = () => {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
+  const sparkles = useMemo<SparkleData[]>(() => {
+    const items: SparkleData[] = [];
+    for (let i = 0; i < 80; i++) {
+      items.push({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 10 + 6, // Adjusted size range: 6-16px
+        delay: Math.random() * 5,
+        duration: Math.random() * 3 + 2,
+        color: colors[Math.floor(Math.random() * colors.length)],
+      });
+    }
+    return items;
+  }, []);
 
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
-
-        let width = window.innerWidth;
-        let height = window.innerHeight;
-        canvas.width = width;
-        canvas.height = height;
-
-        const stars: Star[] = [];
-        const starCount = 100;
-
-        for (let i = 0; i < starCount; i++) {
-            stars.push({
-                x: Math.random() * width,
-                y: Math.random() * height,
-                size: Math.random() * 2,
-                opacity: Math.random(),
-                speed: Math.random() * 0.05 + 0.01
-            });
-        }
-
-        const animate = () => {
-            ctx.clearRect(0, 0, width, height);
-
-            stars.forEach(star => {
-                ctx.fillStyle = `rgba(168, 195, 160, ${star.opacity})`; // pistachio tint
-                ctx.beginPath();
-                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-                ctx.fill();
-
-                star.opacity += star.speed;
-                if (star.opacity > 1 || star.opacity < 0.1) {
-                    star.speed = -star.speed;
-                }
-            });
-
-            requestAnimationFrame(animate);
-        };
-
-        animate();
-
-        const handleResize = () => {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
-        };
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    return <Canvas ref={canvasRef} />;
+  return (
+    <Container>
+      {sparkles.map(s => (
+        <Sparkle
+          key={s.id}
+          $x={s.x}
+          $y={s.y}
+          $size={s.size}
+          $delay={s.delay}
+          $duration={s.duration}
+          $color={s.color}
+        />
+      ))}
+    </Container>
+  );
 };

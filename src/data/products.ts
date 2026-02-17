@@ -1,4 +1,5 @@
-import ProductImg from '../assets/Product.png';
+// src/data/products.ts
+// Matching the HTML mockup data
 
 export interface Product {
     id: string;
@@ -8,105 +9,77 @@ export interface Product {
     price: number;
     category: string;
     image: string;
+    potency?: string;
+    type?: string;
+    rating?: number;
     isNew?: boolean;
-    potency: string; // e.g. "10mg THC" or "24% THC"
-    rating: number;
-    type: 'edible' | 'flower' | 'concentrate';
-    effects?: string[];
-    flavors?: string[];
-    terpenes?: string[];
-    potencyLevel?: number; // 0-100
-    feelLevel?: number; // 0-100 (Calming to Energizing)
+    // ... other fields if needed
 }
+
+import ProductImg from '../assets/images/spacevakery-mascot.png';
 
 export const products: Product[] = [
     {
         id: '1',
-        slug: 'cosmic-brownies',
-        name: 'Cosmic Brownies',
-        description: 'Rich, slow-crafted chocolate squares dusted with stardust.',
-        price: 24.00,
+        slug: 'cosmic-cupcake',
+        name: 'Cosmic Cupcake',
+        description: 'Hybrid • 10mg THC',
+        potency: 'Hybrid • 10mg THC',
+        price: 12.00,
         category: 'edibles',
         image: ProductImg,
         isNew: true,
-        potency: '10mg THC',
-        rating: 4.9,
         type: 'edible'
     },
     {
         id: '2',
-        slug: 'matcha-marshmallows',
-        name: 'Matcha Marshmallows',
-        description: 'Light, chewy, and infused with premium matcha tea.',
-        price: 18.00,
+        slug: 'matcha-clouds',
+        name: 'Matcha Clouds',
+        description: 'Sativa • 5mg THC',
+        potency: 'Sativa • 5mg THC',
+        price: 24.00,
         category: 'edibles',
         image: ProductImg,
-        potency: '5mg THC',
-        rating: 4.8,
+        isNew: true,
         type: 'edible'
     },
     {
         id: '3',
-        slug: 'infused-biscoff-butter',
-        name: 'Infused Biscoff Butter',
-        description: 'Whipped and crafted for easy indulgence.',
-        price: 32.00,
+        slug: 'biscoff-butter',
+        name: 'Biscoff Butter',
+        description: 'Indica • 100mg THC',
+        potency: 'Indica • 100mg THC',
+        price: 45.00,
         category: 'edibles',
         image: ProductImg,
-        potency: '100mg THC',
-        rating: 5.0,
+        isNew: false,
         type: 'edible'
     },
     {
         id: '4',
-        slug: 'moon-rocks-flower',
-        name: 'Moon Rocks',
-        description: 'Premium flower dipped in distillate and rolled in kief.',
-        price: 45.00,
-        category: 'flower',
+        slug: 'midnight-brownie',
+        name: 'Midnight Brownie',
+        description: 'Indica • 50mg THC',
+        potency: 'Indica • 50mg THC',
+        price: 18.00,
+        category: 'edibles',
         image: ProductImg,
         isNew: true,
-        potency: '35% THC',
-        rating: 4.7,
-        type: 'flower',
-        effects: ['Happy', 'Relaxed', 'Sleepy'],
-        flavors: ['Earthly', 'Sweet', 'Pungent'],
-        terpenes: ['Myrcene', 'Caryophyllene', 'Limonene'],
-        potencyLevel: 90,
-        feelLevel: 20 // Mostly calming
+        type: 'edible'
     },
     {
         id: '5',
-        slug: 'stardust-live-resin',
-        name: 'Stardust Live Resin',
-        description: 'Full-spectrum extract with preserved terpenes.',
-        price: 55.00,
-        category: 'concentrates',
-        image: ProductImg,
-        potency: '78% THC',
-        rating: 4.9,
-        type: 'concentrate',
-        effects: ['Energetic', 'Creative', 'Focused'],
-        flavors: ['Citrus', 'Pine'],
-        terpenes: ['Pinene', 'Terpinolene'],
-        potencyLevel: 85,
-        feelLevel: 80 // Mostly energizing
-    },
-    {
-        id: '6',
         slug: 'lavender-sleep-drops',
         name: 'Lavender Sleep Drops',
         description: 'Calming tincture for your nightly ritual.',
+        potency: '500mg CBD : 50mg THC',
         price: 38.00,
         category: 'oils',
         image: ProductImg,
-        potency: '500mg CBD : 50mg THC',
-        rating: 4.8,
-        type: 'concentrate',
-        effects: ['Deep Sleep', 'Calm'],
-        flavors: ['Lavender', 'Herbal'],
-        terpenes: ['Linalool'],
-        potencyLevel: 10,
-        feelLevel: 0 // pure calm
+        isNew: false,
+        type: 'concentrate'
     }
 ];
+
+export const getProducts = () => products;
+export const getProductBySlug = (slug: string) => products.find(p => p.slug === slug);

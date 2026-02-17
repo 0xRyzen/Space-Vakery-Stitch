@@ -30,7 +30,7 @@ const Drawer = styled.div`
   right: 0;
   bottom: 0;
   width: 100%;
-  max-width: 400px;
+  max-width: 100vw;
   background: rgba(250, 246, 240, 0.9); // cream
   backdrop-filter: blur(20px);
   z-index: 101;
@@ -38,6 +38,10 @@ const Drawer = styled.div`
   animation: ${slideIn} 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
+  
+  @media (min-width: 640px) {
+    max-width: 400px;
+  }
 `;
 
 export const CartDrawer = () => {
