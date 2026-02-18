@@ -2,25 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Color System v2 CSS Variables - Space Vakery Pastel Dream Palette */
+/* Color System v2 CSS Variables - Space Vakery Olive Grove Palette */
 :root {
   /* Base */
-  --color-charcoal: #4A4063;
-  --color-midnight: #4A4063;
-  --color-oat: #FFF0F5;
-  --color-cream: #FFF0F5;
+  --color-charcoal: #354F42;
+  --color-midnight: #354F42;
+  --color-oat: #F1F7ED;
+  --color-cream: #F1F7ED;
   
   /* Accents */
-  --color-pistachio: #B5EAD7;
-  --color-matcha: #B5EAD7;
-  --color-blush: #FFDAC1;
-  --color-apricot: #FFDAC1;
-  --color-plum: #C7CEEA;
+  --color-pistachio: #93C572;
+  --color-matcha: #93C572;
+  --color-blush: #C1D7AE;
+  --color-apricot: #C1D7AE;
+  --color-plum: #5E8C61;
   
   /* Glass surfaces */
-  --glass-white: rgba(255, 240, 245, 0.35);
-  --glass-oat: rgba(255, 240, 245, 0.4);
-  --glass-border: rgba(255, 240, 245, 0.5);
+  --glass-white: rgba(241, 247, 237, 0.35);
+  --glass-oat: rgba(241, 247, 237, 0.4);
+  --glass-border: rgba(241, 247, 237, 0.5);
 }
 
 @layer base {
