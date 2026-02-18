@@ -8,26 +8,26 @@ export default {
     theme: {
         extend: {
             colors: {
-                // Space Vakery Midnight Blue & Silver Palette
-                charcoal: '#000511', // Very dark blue/black
-                midnight: '#000511', // Very dark blue/black
-                oat: '#E8EAF6', // Cool silver/white
-                cream: '#E8EAF6', // Cool silver/white
-                pistachio: '#5C6BC0', // Soft indigo
-                matcha: '#5C6BC0', // Soft indigo
-                blush: '#9FA8DA', // Light indigo
-                apricot: '#9FA8DA', // Light indigo
-                plum: '#3949AB', // Rich blue
+                // Space Vakery Pastel Dream Palette
+                charcoal: '#4A4063', // Deep dusky violet
+                midnight: '#4A4063', // Deep dusky violet
+                oat: '#FFF0F5', // Lavender blush
+                cream: '#FFF0F5', // Lavender blush
+                pistachio: '#B5EAD7', // Pastel mint
+                matcha: '#B5EAD7', // Pastel mint
+                blush: '#FFDAC1', // Pastel peach
+                apricot: '#FFDAC1', // Pastel peach
+                plum: '#C7CEEA', // Pastel periwinkle
                 // Derived colors
-                primary: '#3949AB', // Rich Blue
-                secondary: '#5C6BC0', // Indigo
-                'text-dark': '#000511', // Midnight
-                'text-light': '#E8EAF6', // Silver
-                'background-light': '#E8EAF6', // Silver
-                'background-dark': '#000511', // Midnight
-                'card-light': '#E8EAF6',
-                'card-dark': '#000511',
-                'glass-white': 'rgba(232, 234, 246, 0.4)',
+                primary: '#957DAD', // Muted Purple
+                secondary: '#FEC8D8', // Soft Pink
+                'text-dark': '#4A4063', // Dusky Violet
+                'text-light': '#FFF0F5', // Lavender Blush
+                'background-light': '#FFF0F5', // Lavender Blush
+                'background-dark': '#4A4063', // Dusky Violet
+                'card-light': '#FFF0F5',
+                'card-dark': '#4A4063',
+                'glass-white': 'rgba(255, 240, 245, 0.4)',
             },
             fontFamily: {
                 display: ['"Cormorant Garamond"', 'serif'],
@@ -42,8 +42,8 @@ export default {
                 '3xl': '2rem',
             },
             backgroundImage: {
-                'cosmic-light': 'radial-gradient(circle at 50% 30%, rgba(232, 234, 246, 0.8) 0%, rgba(232, 234, 246, 0) 60%), radial-gradient(circle at 80% 20%, rgba(159, 168, 218, 0.2) 0%, rgba(232, 234, 246, 0) 40%)',
-                'cosmic-dark': 'radial-gradient(circle at 50% 30%, rgba(0, 5, 17, 0.9) 0%, rgba(0, 5, 17, 0) 60%), radial-gradient(circle at 80% 20%, rgba(57, 73, 171, 0.2) 0%, rgba(0, 5, 17, 0) 40%)',
+                'cosmic-light': 'radial-gradient(circle at 50% 30%, rgba(255, 240, 245, 0.8) 0%, rgba(255, 240, 245, 0) 60%), radial-gradient(circle at 80% 20%, rgba(255, 218, 193, 0.3) 0%, rgba(255, 240, 245, 0) 40%)',
+                'cosmic-dark': 'radial-gradient(circle at 50% 30%, rgba(74, 64, 99, 0.9) 0%, rgba(74, 64, 99, 0) 60%), radial-gradient(circle at 80% 20%, rgba(149, 125, 173, 0.2) 0%, rgba(74, 64, 99, 0) 40%)',
             },
             container: {
                 center: true,
