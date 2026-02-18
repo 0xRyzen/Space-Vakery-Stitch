@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { useCartStore } from '../store/cart.store';
 import { GlassCard } from '../components/ui/GlassCard';
 import { GlassButton } from '../components/ui/GlassButton';
+import { FormInput } from '../components/ui/FormInput';
+import { FormSelect } from '../components/ui/FormSelect';
 import { Stepper } from '../components/ui/Stepper';
 import { CheckCircle, ShieldCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -15,46 +17,60 @@ const Container = styled.div`
   }
 `;
 
-const FormInput = styled.input`
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.1);
-  background: rgba(255,255,255,0.5);
-  margin-bottom: 1rem;
-  font-family: 'Inter', sans-serif;
-  
-  &:focus {
-    outline: none;
-    border-color: ${props => props.theme.colors.pistachio};
-    background: white;
-  }
-`;
+interface ShippingFormData {
+    firstName: string;
+    lastName: string;
+    address: string;
+    city: string;
+    zipCode: string;
+    shippingMethod: 'standard' | 'express';
+}
 
-const FormSelect = styled.select`
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.1);
-  background: rgba(255,255,255,0.5);
-  margin-bottom: 1rem;
-  font-family: 'Inter', sans-serif;
-`;
+interface PaymentFormData {
+    cardNumber: string;
+    expiryDate: string;
+    cvc: string;
+}
 
 export const Checkout = () => {
     const { items, subtotal, clearCart } = useCartStore();
     const [step, setStep] = useState(0);
     const navigate = useNavigate();
+    const [discountCode, setDiscountCode] = useState('');
 
     const steps = ['Shipping', 'Payment', 'Review'];
 
+    // Form state
+    const [shippingForm, setShippingForm] = useState<ShippingFormData>({
+        firstName: '',
+        lastName: '',
+        address: '',
+        city: '',
+        zipCode: '',
+        shippingMethod: 'standard'
+    });
+
+    const [paymentForm, setPaymentForm] = useState<PaymentFormData>({
+        cardNumber: '',
+        expiryDate: '',
+        cvc: ''
+    });
+
     const total = subtotal();
+    const shippingCost = shippingForm.shippingMethod === 'express' ? 25 : (total > 75 ? 0 : 10);
     const tax = total * 0.08;
-    const shipping = total > 75 ? 0 : 10;
-    const finalTotal = total + tax + shipping;
+    const finalTotal = total + tax + shippingCost;
 
     const handleNext = () => setStep(s => s + 1);
     const handleBack = () => setStep(s => s - 1);
+
+    const handleShippingChange = (field: keyof ShippingFormData, value: string) => {
+        setShippingForm(prev => ({ ...prev, [field]: value }));
+    };
+
+    const handlePaymentChange = (field: keyof PaymentFormData, value: string) => {
+        setPaymentForm(prev => ({ ...prev, [field]: value }));
+    };
 
     const handlePlaceOrder = () => {
         setStep(3); // Completion state
@@ -100,14 +116,43 @@ export const Checkout = () => {
                             <GlassCard>
                                 <h2 className="font-serif text-xl sm:text-2xl mb-4 sm:mb-6">Shipping Information</h2>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <FormInput placeholder="First Name" />
-                                    <FormInput placeholder="Last Name" />
-                                    <FormInput placeholder="Address" className="col-span-1 sm:col-span-2" />
-                                    <FormInput placeholder="City" />
-                                    <FormInput placeholder="Zip Code" />
+                                    <FormInput 
+                                        placeholder="First Name" 
+                                        value={shippingForm.firstName}
+                                        onChange={(e) => handleShippingChange('firstName', e.target.value)}
+                                        required
+                                    />
+                                    <FormInput 
+                                        placeholder="Last Name"
+                                        value={shippingForm.lastName}
+                                        onChange={(e) => handleShippingChange('lastName', e.target.value)}
+                                        required
+                                    />
+                                    <FormInput 
+                                        placeholder="Address" 
+                                        className="col-span-1 sm:col-span-2"
+                                        value={shippingForm.address}
+                                        onChange={(e) => handleShippingChange('address', e.target.value)}
+                                        required
+                                    />
+                                    <FormInput 
+                                        placeholder="City"
+                                        value={shippingForm.city}
+                                        onChange={(e) => handleShippingChange('city', e.target.value)}
+                                        required
+                                    />
+                                    <FormInput 
+                                        placeholder="Zip Code"
+                                        value={shippingForm.zipCode}
+                                        onChange={(e) => handleShippingChange('zipCode', e.target.value)}
+                                        required
+                                    />
                                 </div>
                                 <h3 className="font-bold text-xs uppercase tracking-widest mt-6 mb-4 opacity-40">Shipping Method</h3>
-                                <FormSelect defaultValue="Standard">
+                                <FormSelect 
+                                    value={shippingForm.shippingMethod}
+                                    onChange={(e) => handleShippingChange('shippingMethod', e.target.value as 'standard' | 'express')}
+                                >
                                     <option value="standard">Standard Shipping ($10.00 / Free over $75)</option>
                                     <option value="express">Express Relay ($25.00)</option>
                                 </FormSelect>
@@ -124,10 +169,28 @@ export const Checkout = () => {
                                     <ShieldCheck size={20} className="text-pistachio flex-shrink-0" />
                                     <span className="text-xs opacity-70">All transactions are encrypted and secure.</span>
                                 </div>
-                                <FormInput placeholder="Card Number" />
+                                <FormInput 
+                                    placeholder="Card Number"
+                                    value={paymentForm.cardNumber}
+                                    onChange={(e) => handlePaymentChange('cardNumber', e.target.value)}
+                                    maxLength={19}
+                                    required
+                                />
                                 <div className="grid grid-cols-2 gap-4">
-                                    <FormInput placeholder="MM/YY" />
-                                    <FormInput placeholder="CVC" />
+                                    <FormInput 
+                                        placeholder="MM/YY"
+                                        value={paymentForm.expiryDate}
+                                        onChange={(e) => handlePaymentChange('expiryDate', e.target.value)}
+                                        maxLength={5}
+                                        required
+                                    />
+                                    <FormInput 
+                                        placeholder="CVC"
+                                        value={paymentForm.cvc}
+                                        onChange={(e) => handlePaymentChange('cvc', e.target.value)}
+                                        maxLength={4}
+                                        required
+                                    />
                                 </div>
                                 <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-between gap-3">
                                     <GlassButton variant="secondary" onClick={handleBack} className="w-full sm:w-auto">Back</GlassButton>
@@ -142,11 +205,16 @@ export const Checkout = () => {
                                 <div className="space-y-6">
                                     <div className="pb-6 border-b border-black/5">
                                         <h3 className="text-xs uppercase font-bold tracking-widest opacity-40 mb-2">Delivery to:</h3>
-                                        <p className="text-sm">John Doe, 123 Stardust Way, Nebula City, 90210</p>
+                                        <p className="text-sm">
+                                            {shippingForm.firstName} {shippingForm.lastName}, {shippingForm.address}, {shippingForm.city}, {shippingForm.zipCode}
+                                        </p>
+                                        <p className="text-sm mt-1 opacity-60">
+                                            {shippingForm.shippingMethod === 'express' ? 'Express Relay Shipping' : 'Standard Shipping'}
+                                        </p>
                                     </div>
                                     <div className="pb-6 border-b border-black/5">
                                         <h3 className="text-xs uppercase font-bold tracking-widest opacity-40 mb-2">Payment Method:</h3>
-                                        <p className="text-sm">Visa ending in 4242</p>
+                                        <p className="text-sm">Card ending in {paymentForm.cardNumber.slice(-4) || '****'}</p>
                                     </div>
                                 </div>
                                 <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-between gap-3">
@@ -176,7 +244,12 @@ export const Checkout = () => {
                             </div>
 
                             <div className="flex gap-2 mb-6">
-                                <FormInput placeholder="Discount Code" className="mb-0 text-sm py-2" />
+                                <FormInput 
+                                    placeholder="Discount Code" 
+                                    className="mb-0 text-sm py-2"
+                                    value={discountCode}
+                                    onChange={(e) => setDiscountCode(e.target.value)}
+                                />
                                 <GlassButton size="sm" variant="secondary">Apply</GlassButton>
                             </div>
 
@@ -187,7 +260,7 @@ export const Checkout = () => {
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="opacity-60">Shipping</span>
-                                    <span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
+                                    <span>{shippingCost === 0 ? 'Free' : `$${shippingCost.toFixed(2)}`}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="opacity-60">Tax (8%)</span>

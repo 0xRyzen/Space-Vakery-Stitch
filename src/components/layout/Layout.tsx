@@ -9,6 +9,11 @@ const Main = styled.main`
   width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
+  padding-top: 72px;
+  
+  @media (min-width: 640px) {
+    padding-top: 88px;
+  }
 `;
 
 export const Layout = () => {

@@ -16,9 +16,12 @@ interface CartState {
     items: CartItem[];
     isOpen: boolean;
     addItem: (item: CartItem) => void;
+    addToCart: (productId: string, skuId: string, qty: number, productData: { name: string; price: number; image: string; variantName?: string }) => void;
     removeItem: (skuId: string) => void;
     updateQty: (skuId: string, qty: number) => void;
     toggleCart: () => void;
+    openCart: () => void;
+    closeCart: () => void;
     subtotal: () => number;
     clearCart: () => void;
 }
@@ -45,6 +48,15 @@ export const useCartStore = create<CartState>()(
                     });
                 }
             },
+            addToCart: (productId, skuId, qty, productData) => {
+                get().addItem({
+                    id: `${productId}-${skuId}-${Date.now()}`,
+                    productId,
+                    skuId,
+                    qty,
+                    ...productData
+                });
+            },
             removeItem: (id) => set({ items: get().items.filter((i) => i.id !== id) }),
             updateQty: (id, qty) => {
                 if (qty <= 0) {
@@ -54,6 +66,8 @@ export const useCartStore = create<CartState>()(
                 }
             },
             toggleCart: () => set({ isOpen: !get().isOpen }),
+            openCart: () => set({ isOpen: true }),
+            closeCart: () => set({ isOpen: false }),
             subtotal: () => {
                 const state = get();
                 return state.items.reduce((acc, item) => acc + item.price * item.qty, 0);

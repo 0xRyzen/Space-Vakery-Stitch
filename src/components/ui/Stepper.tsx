@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 interface StepperProps {
@@ -35,7 +36,7 @@ const Number = styled.div<{ active: boolean; completed: boolean }>`
   height: 24px;
   border-radius: 50%;
   display: flex;
-  items-center: center;
+  align-items: center;
   justify-content: center;
   font-size: 0.65rem;
   font-weight: 700;
@@ -95,5 +96,3 @@ export const Stepper = ({ steps, currentStep }: StepperProps) => {
         </Container>
     );
 };
-
-import React from 'react';

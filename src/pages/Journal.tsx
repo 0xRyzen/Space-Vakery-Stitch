@@ -2,15 +2,15 @@ import styled from 'styled-components';
 import { GlassCard } from '../components/ui/GlassCard';
 
 const PageHeader = styled.div`
-  padding: 3rem 0;
+  padding: 2rem 0;
   text-align: center;
   
   @media (min-width: 768px) {
-    padding: 4rem 0;
+    padding: 3rem 0;
   }
   
   @media (min-width: 1024px) {
-    padding: 6rem 0;
+    padding: 4rem 0;
   }
 `;
 

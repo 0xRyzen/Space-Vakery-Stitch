@@ -35,7 +35,7 @@ const Drawer = styled.div`
   backdrop-filter: blur(20px);
   z-index: 101;
   box-shadow: -10px 0 40px rgba(0,0,0,0.1);
-  animation: ${slideIn} 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: ${slideIn} 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
   
@@ -128,12 +128,21 @@ export const CartDrawer = () => {
                             <span>${subtotal().toFixed(2)}</span>
                         </div>
                         <p className="text-xs text-gray-500 mb-6 text-center">Shipping & taxes calculated at checkout</p>
-                        <GlassButton
-                            className="w-full"
-                            onClick={() => { toggleCart(); navigate('/checkout'); }}
-                        >
-                            Checkout
-                        </GlassButton>
+                        <div className="space-y-3">
+                            <GlassButton
+                                className="w-full"
+                                onClick={() => { toggleCart(); navigate('/checkout'); }}
+                            >
+                                Checkout
+                            </GlassButton>
+                            <GlassButton
+                                variant="secondary"
+                                className="w-full"
+                                onClick={toggleCart}
+                            >
+                                Continue Shopping
+                            </GlassButton>
+                        </div>
                     </div>
                 )}
             </Drawer>

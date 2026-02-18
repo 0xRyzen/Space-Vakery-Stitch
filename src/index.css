@@ -2,20 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Color System v2 CSS Variables */
+/* Color System v2 CSS Variables - Space Vakery Purple Palette */
 :root {
   /* Base */
-  --color-charcoal: #1C1F2A;
-  --color-midnight: #222638;
-  --color-oat: #F2E9DC;
-  --color-cream: #FAF6F0;
+  --color-charcoal: #263973;
+  --color-midnight: #263973;
+  --color-oat: #FFFFC9;
+  --color-cream: #FFFFC9;
   
   /* Accents */
-  --color-pistachio: #A8C3A0;
-  --color-matcha: #8BAF8C;
-  --color-blush: #E7B7B2;
-  --color-apricot: #E6A57E;
-  --color-plum: #5E4B6E;
+  --color-pistachio: #5A69BF;
+  --color-matcha: #5A69BF;
+  --color-blush: #0FDBF2;
+  --color-apricot: #0FDBF2;
+  --color-plum: #AC43D9;
   
   /* Glass surfaces */
   --glass-white: rgba(255, 255, 255, 0.35);

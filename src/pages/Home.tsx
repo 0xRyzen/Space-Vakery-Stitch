@@ -64,8 +64,8 @@ const Home = () => {
         return () => clearInterval(interval);
     }, [slides.length]);
 
-    // Use specific products for New Arrivals if available, otherwise fallback or just slice first 4
-    const newArrivals = products.slice(0, 4); 
+    // Filter products marked as new arrivals
+    const newArrivals = products.filter(p => p.isNew).slice(0, 8); 
 
     return (
         <div className="bg-background-light dark:bg-background-dark text-text-dark dark:text-text-light transition-colors duration-300 font-sans antialiased overflow-x-hidden relative min-h-screen w-full max-w-full">
@@ -84,7 +84,7 @@ const Home = () => {
             </div>
 
             {/* Hero Slider */}
-            <header className="relative h-[calc(100vh-80px)] min-h-[400px] sm:min-h-[500px] md:min-h-[600px] w-full overflow-hidden">
+            <header className="relative h-[calc(100vh-150px)] sm:h-[calc(100vh-170px)] min-h-[400px] sm:min-h-[500px] md:min-h-[600px] w-full overflow-hidden">
                 <div 
                     className="absolute inset-0 flex transition-transform duration-700 ease-in-out" 
                     style={{ width: `${slides.length * 100}%`, transform: `translateX(-${currentSlide * (100 / slides.length)}%)` }}
@@ -199,7 +199,7 @@ const Home = () => {
                         <h2 className="font-display text-2xl sm:text-3xl md:text-4xl">New Arrivals</h2>
                         <p className="text-sm opacity-60 mt-2">Fresh batches from the lab.</p>
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-x-6 gap-y-10">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-x-6 gap-y-10">
                         {newArrivals.map(product => (
                             <ProductCard key={product.id} product={product} />
                         ))}

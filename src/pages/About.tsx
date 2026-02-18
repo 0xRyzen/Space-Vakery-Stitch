@@ -3,15 +3,15 @@ import { GlassCard } from '../components/ui/GlassCard';
 
 const PageHero = styled.div`
   background: ${props => props.theme.colors.cream};
-  padding: 4rem 0;
+  padding: 2rem 0 4rem;
   text-align: center;
   
-  @media (min-width: 768px) {
-    padding: 6rem 0;
+  @media (min-width: 640px) {
+    padding: 3rem 0 6rem;
   }
   
   @media (min-width: 1024px) {
-    padding: 8rem 0;
+    padding: 4rem 0 8rem;
   }
 `;
 

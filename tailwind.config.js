@@ -8,25 +8,25 @@ export default {
     theme: {
         extend: {
             colors: {
-                // Original colors
-                charcoal: '#1C1F2A',
-                midnight: '#222638',
-                oat: '#F2E9DC',
-                cream: '#FAF6F0',
-                pistachio: '#A8C3A0',
-                matcha: '#8BAF8C',
-                blush: '#E7B7B2',
-                apricot: '#E6A57E',
-                plum: '#5E4B6E',
-                // Space Vakery colors
-                primary: '#9CB29D', // Sage/Pistachio Green
-                secondary: '#ECD8CE', // Soft Blush/Peach
-                'text-dark': '#3A4A40', // Dark Greenish Charcoal
-                'text-light': '#F5F2EA', // Light text for dark mode
-                'background-light': '#F5F2EA', // Oat/Cream
-                'background-dark': '#1A2624', // Deep cosmic dark teal
-                'card-light': '#FAF8F4',
-                'card-dark': '#2A3634',
+                // Space Vakery Purple Palette
+                charcoal: '#263973',
+                midnight: '#263973',
+                oat: '#FFFFC9',
+                cream: '#FFFFC9',
+                pistachio: '#5A69BF',
+                matcha: '#5A69BF',
+                blush: '#0FDBF2',
+                apricot: '#0FDBF2',
+                plum: '#AC43D9',
+                // Derived colors
+                primary: '#AC43D9', // Cosmic purple
+                secondary: '#5A69BF', // Nebula blue-purple
+                'text-dark': '#263973', // Deep space blue
+                'text-light': '#FFFFC9', // Soft cosmic cream
+                'background-light': '#FFFFC9', // Soft cosmic cream
+                'background-dark': '#263973', // Deep space blue
+                'card-light': '#FFFFC9',
+                'card-dark': '#263973',
                 'glass-white': 'rgba(255, 255, 255, 0.4)',
             },
             fontFamily: {

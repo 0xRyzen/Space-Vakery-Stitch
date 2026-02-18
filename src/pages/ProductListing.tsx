@@ -8,12 +8,12 @@ import { FilterPanel } from '../components/commerce/FilterPanel';
 import { SortBar } from '../components/commerce/SortBar';
 
 const Header = styled.div`
-  padding: 3rem 0 4rem;
+  padding: 2rem 0 4rem;
   text-align: center;
   background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
   
   @media (max-width: 768px) {
-    padding: 2rem 0 3rem;
+    padding: 1.5rem 0 3rem;
   }
 `;
 

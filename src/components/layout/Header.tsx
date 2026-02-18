@@ -1,12 +1,15 @@
 import { NavLink } from 'react-router-dom';
 import { Search, User, ShoppingBag, Menu } from 'lucide-react';
 import { useState } from 'react';
+import { useCartStore } from '../../store/cart.store';
 
 export const Header = ({ className }: { className?: string }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { toggleCart, items } = useCartStore();
+    const cartItemCount = items.length;
 
     return (
-        <header className={`z-40 w-full transition-all duration-300 backdrop-blur-md bg-transparent mt-0 mb-0 ${className || ''}`}>
+        <header className={`w-full transition-all duration-300 bg-transparent mt-0 mb-0 ${className || ''}`}>
             {/* Navigation */}
             <nav className="fixed top-0 w-full z-50 px-3 py-4 sm:px-6 sm:py-6 md:px-12 flex justify-between items-center bg-transparent backdrop-blur-sm">
                 
@@ -66,24 +69,33 @@ export const Header = ({ className }: { className?: string }) => {
                         <NavLink className="hover:text-primary transition-colors" to="/profile">
                             <User className="w-4 h-4 sm:w-5 sm:h-5" />
                         </NavLink>
-                        <NavLink className="hover:text-primary transition-colors" to="/cart">
+                        <button 
+                            className="hover:text-primary transition-colors relative" 
+                            onClick={toggleCart}
+                            aria-label="Open cart"
+                        >
                             <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
-                        </NavLink>
+                            {cartItemCount > 0 && (
+                                <span className="absolute -top-2 -right-2 bg-pistachio text-charcoal text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                                    {cartItemCount}
+                                </span>
+                            )}
+                        </button>
                     </div>
                 </div>
             </nav>
 
-             {/* Mobile Menu Dropdown (Simple implementation) */}
+             {/* Mobile Menu Dropdown */}
              {isMenuOpen && (
                 <>
                     {/* Overlay */}
                     <div
-                        className="fixed inset-0 bg-charcoal/20 backdrop-blur-sm z-40 md:hidden"
+                        className="fixed inset-0 bg-charcoal/20 backdrop-blur-sm z-[90] md:hidden"
                         onClick={() => setIsMenuOpen(false)}
                     />
 
                     {/* Menu Panel */}
-                    <div className="fixed inset-0 top-[72px] sm:top-[88px] z-50 bg-cream/98 backdrop-blur-xl md:hidden flex flex-col overflow-y-auto">
+                    <div className="fixed top-[72px] sm:top-[88px] left-0 right-0 bottom-0 z-[95] bg-cream/98 backdrop-blur-xl md:hidden flex flex-col overflow-y-auto shadow-2xl">
                         <div className="p-6 space-y-1">
                             {/* Close Button */}
                             <button
