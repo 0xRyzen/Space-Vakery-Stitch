@@ -8,26 +8,26 @@ export default {
     theme: {
         extend: {
             colors: {
-                // Space Vakery Purple Palette
-                charcoal: '#263973',
-                midnight: '#263973',
-                oat: '#FFFFC9',
-                cream: '#FFFFC9',
-                pistachio: '#5A69BF',
-                matcha: '#5A69BF',
-                blush: '#0FDBF2',
-                apricot: '#0FDBF2',
-                plum: '#AC43D9',
+                // Space Vakery Midnight Blue & Silver Palette
+                charcoal: '#000511', // Very dark blue/black
+                midnight: '#000511', // Very dark blue/black
+                oat: '#E8EAF6', // Cool silver/white
+                cream: '#E8EAF6', // Cool silver/white
+                pistachio: '#5C6BC0', // Soft indigo
+                matcha: '#5C6BC0', // Soft indigo
+                blush: '#9FA8DA', // Light indigo
+                apricot: '#9FA8DA', // Light indigo
+                plum: '#3949AB', // Rich blue
                 // Derived colors
-                primary: '#AC43D9', // Cosmic purple
-                secondary: '#5A69BF', // Nebula blue-purple
-                'text-dark': '#263973', // Deep space blue
-                'text-light': '#FFFFC9', // Soft cosmic cream
-                'background-light': '#FFFFC9', // Soft cosmic cream
-                'background-dark': '#263973', // Deep space blue
-                'card-light': '#FFFFC9',
-                'card-dark': '#263973',
-                'glass-white': 'rgba(255, 255, 255, 0.4)',
+                primary: '#3949AB', // Rich Blue
+                secondary: '#5C6BC0', // Indigo
+                'text-dark': '#000511', // Midnight
+                'text-light': '#E8EAF6', // Silver
+                'background-light': '#E8EAF6', // Silver
+                'background-dark': '#000511', // Midnight
+                'card-light': '#E8EAF6',
+                'card-dark': '#000511',
+                'glass-white': 'rgba(232, 234, 246, 0.4)',
             },
             fontFamily: {
                 display: ['"Cormorant Garamond"', 'serif'],
@@ -42,8 +42,8 @@ export default {
                 '3xl': '2rem',
             },
             backgroundImage: {
-                'cosmic-light': 'radial-gradient(circle at 50% 30%, rgba(255,255,255,0.8) 0%, rgba(245,242,234,0) 60%), radial-gradient(circle at 80% 20%, rgba(200, 220, 255, 0.2) 0%, rgba(245,242,234,0) 40%)',
-                'cosmic-dark': 'radial-gradient(circle at 50% 30%, rgba(40,60,60,0.8) 0%, rgba(26,38,36,0) 60%), radial-gradient(circle at 80% 20%, rgba(100, 150, 140, 0.1) 0%, rgba(26,38,36,0) 40%)',
+                'cosmic-light': 'radial-gradient(circle at 50% 30%, rgba(232, 234, 246, 0.8) 0%, rgba(232, 234, 246, 0) 60%), radial-gradient(circle at 80% 20%, rgba(159, 168, 218, 0.2) 0%, rgba(232, 234, 246, 0) 40%)',
+                'cosmic-dark': 'radial-gradient(circle at 50% 30%, rgba(0, 5, 17, 0.9) 0%, rgba(0, 5, 17, 0) 60%), radial-gradient(circle at 80% 20%, rgba(57, 73, 171, 0.2) 0%, rgba(0, 5, 17, 0) 40%)',
             },
             container: {
                 center: true,

@@ -2,15 +2,15 @@ import type { DefaultTheme } from 'styled-components';
 
 export const theme: DefaultTheme = {
     colors: {
-        charcoal: '#263973',
-        midnight: '#263973',
-        oat: '#FFFFC9',
-        cream: '#FFFFC9',
-        pistachio: '#5A69BF',
-        matcha: '#5A69BF',
-        blush: '#0FDBF2',
-        apricot: '#0FDBF2',
-        plum: '#AC43D9',
+        charcoal: '#000511', // Very dark blue/black
+        midnight: '#000511', // Very dark blue/black
+        oat: '#E8EAF6', // Cool silver/white
+        cream: '#E8EAF6', // Cool silver/white
+        pistachio: '#5C6BC0', // Soft indigo
+        matcha: '#5C6BC0', // Soft indigo
+        blush: '#9FA8DA', // Light indigo
+        apricot: '#9FA8DA', // Light indigo
+        plum: '#3949AB', // Rich blue
     },
     glass: {
         surface: (opacity = 0.15, blur = 12) => `

@@ -2,25 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Color System v2 CSS Variables - Space Vakery Purple Palette */
+/* Color System v2 CSS Variables - Space Vakery Midnight Blue & Silver Palette */
 :root {
   /* Base */
-  --color-charcoal: #263973;
-  --color-midnight: #263973;
-  --color-oat: #FFFFC9;
-  --color-cream: #FFFFC9;
+  --color-charcoal: #000511;
+  --color-midnight: #000511;
+  --color-oat: #E8EAF6;
+  --color-cream: #E8EAF6;
   
   /* Accents */
-  --color-pistachio: #5A69BF;
-  --color-matcha: #5A69BF;
-  --color-blush: #0FDBF2;
-  --color-apricot: #0FDBF2;
-  --color-plum: #AC43D9;
+  --color-pistachio: #5C6BC0;
+  --color-matcha: #5C6BC0;
+  --color-blush: #9FA8DA;
+  --color-apricot: #9FA8DA;
+  --color-plum: #3949AB;
   
   /* Glass surfaces */
-  --glass-white: rgba(255, 255, 255, 0.35);
-  --glass-oat: rgba(242, 233, 220, 0.4);
-  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-white: rgba(232, 234, 246, 0.35);
+  --glass-oat: rgba(232, 234, 246, 0.4);
+  --glass-border: rgba(232, 234, 246, 0.5);
 }
 
 @layer base {
