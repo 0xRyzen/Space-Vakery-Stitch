@@ -25,7 +25,11 @@ export const Header = ({ className }: { className?: string }) => {
 
                 {/* Mobile Menu Toggle */}
                 <div className="md:hidden flex-1">
-                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 text-charcoal">
+                    <button
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        className="p-2 text-charcoal focus:outline-none focus:ring-2 focus:ring-primary"
+                        aria-label="Toggle menu"
+                    >
                         <Menu className="w-6 h-6" />
                     </button>
                 </div>
@@ -73,27 +77,37 @@ export const Header = ({ className }: { className?: string }) => {
              {isMenuOpen && (
                 <>
                     {/* Overlay */}
-                    <div 
-                        className="fixed inset-0 bg-charcoal/20 backdrop-blur-sm z-39 md:hidden" 
+                    <div
+                        className="fixed inset-0 bg-charcoal/20 backdrop-blur-sm z-40 md:hidden"
                         onClick={() => setIsMenuOpen(false)}
                     />
-                    
+
                     {/* Menu Panel */}
-                    <div className="fixed inset-0 top-[72px] sm:top-[88px] z-40 bg-cream/98 backdrop-blur-xl md:hidden flex flex-col overflow-y-auto">
+                    <div className="fixed inset-0 top-[72px] sm:top-[88px] z-50 bg-cream/98 backdrop-blur-xl md:hidden flex flex-col overflow-y-auto">
                         <div className="p-6 space-y-1">
                             {/* Close Button */}
-                            <button 
+                            <button
                                 onClick={() => setIsMenuOpen(false)}
-                                className="absolute top-6 right-6 p-2 hover:bg-charcoal/10 rounded-full transition-colors"
+                                className="absolute top-6 right-6 p-2 hover:bg-charcoal/10 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
                                 aria-label="Close menu"
                             >
-                                <svg className="w-6 h-6 text-charcoal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                <svg
+                                    className="w-6 h-6 text-charcoal"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M6 18L18 6M6 6l12 12"
+                                    />
                                 </svg>
                             </button>
 
                             {/* Home */}
-                            <NavLink 
+                            <NavLink
                                 className={({ isActive }) => `block text-lg font-medium uppercase tracking-wider py-3 px-4 rounded-lg transition-colors ${isActive ? 'bg-pistachio/20 text-pistachio' : 'text-charcoal hover:bg-charcoal/5'}`}
                                 to="/" 
                                 onClick={() => setIsMenuOpen(false)}
@@ -104,21 +118,21 @@ export const Header = ({ className }: { className?: string }) => {
                             {/* Shop Section */}
                             <div className="pt-2">
                                 <div className="text-xs uppercase tracking-widest font-bold text-charcoal/40 px-4 py-2">Shop</div>
-                                <NavLink 
+                                <NavLink
                                     className={({ isActive }) => `block text-lg font-medium uppercase tracking-wider py-3 px-4 rounded-lg transition-colors ${isActive ? 'bg-pistachio/20 text-pistachio' : 'text-charcoal hover:bg-charcoal/5'}`}
                                     to="/shop/all" 
                                     onClick={() => setIsMenuOpen(false)}
                                 >
                                     All Products
                                 </NavLink>
-                                <NavLink 
+                                <NavLink
                                     className={({ isActive }) => `block text-lg font-medium uppercase tracking-wider py-3 px-4 rounded-lg transition-colors ${isActive ? 'bg-pistachio/20 text-pistachio' : 'text-charcoal hover:bg-charcoal/5'}`}
                                     to="/shop/treats" 
                                     onClick={() => setIsMenuOpen(false)}
                                 >
                                     Treats
                                 </NavLink>
-                                <NavLink 
+                                <NavLink
                                     className={({ isActive }) => `block text-lg font-medium uppercase tracking-wider py-3 px-4 rounded-lg transition-colors ${isActive ? 'bg-pistachio/20 text-pistachio' : 'text-charcoal hover:bg-charcoal/5'}`}
                                     to="/shop/concentrates" 
                                     onClick={() => setIsMenuOpen(false)}
@@ -130,21 +144,21 @@ export const Header = ({ className }: { className?: string }) => {
                             {/* Company Section */}
                             <div className="pt-4 border-t border-charcoal/10 mt-4">
                                 <div className="text-xs uppercase tracking-widest font-bold text-charcoal/40 px-4 py-2">Company</div>
-                                <NavLink 
+                                <NavLink
                                     className={({ isActive }) => `block text-lg font-medium uppercase tracking-wider py-3 px-4 rounded-lg transition-colors ${isActive ? 'bg-pistachio/20 text-pistachio' : 'text-charcoal hover:bg-charcoal/5'}`}
                                     to="/about" 
                                     onClick={() => setIsMenuOpen(false)}
                                 >
                                     About
                                 </NavLink>
-                                <NavLink 
+                                <NavLink
                                     className={({ isActive }) => `block text-lg font-medium uppercase tracking-wider py-3 px-4 rounded-lg transition-colors ${isActive ? 'bg-pistachio/20 text-pistachio' : 'text-charcoal hover:bg-charcoal/5'}`}
                                     to="/journal" 
                                     onClick={() => setIsMenuOpen(false)}
                                 >
                                     Journal
                                 </NavLink>
-                                <NavLink 
+                                <NavLink
                                     className={({ isActive }) => `block text-lg font-medium uppercase tracking-wider py-3 px-4 rounded-lg transition-colors ${isActive ? 'bg-pistachio/20 text-pistachio' : 'text-charcoal hover:bg-charcoal/5'}`}
                                     to="/locations" 
                                     onClick={() => setIsMenuOpen(false)}
@@ -156,7 +170,7 @@ export const Header = ({ className }: { className?: string }) => {
                             {/* Account Section */}
                             <div className="pt-4 border-t border-charcoal/10 mt-4">
                                 <div className="text-xs uppercase tracking-widest font-bold text-charcoal/40 px-4 py-2">Account</div>
-                                <NavLink 
+                                <NavLink
                                     className={({ isActive }) => `block text-lg font-medium uppercase tracking-wider py-3 px-4 rounded-lg transition-colors ${isActive ? 'bg-pistachio/20 text-pistachio' : 'text-charcoal hover:bg-charcoal/5'}`}
                                     to="/profile" 
                                     onClick={() => setIsMenuOpen(false)}

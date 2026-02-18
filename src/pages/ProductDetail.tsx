@@ -18,20 +18,41 @@ const PageContainer = styled.div`
 `;
 
 const ImageGallery = styled.div`
-  border-radius: 16px;
-  overflow: hidden;
-  background: #f0f0f0;
-  aspect-ratio: 1;
-  position: relative;
-  
-  @media (min-width: 768px) {
-    border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .main-image {
+    border-radius: 16px;
+    overflow: hidden;
+    background: #f0f0f0;
+    aspect-ratio: 1;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
-  
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+
+  .thumbnails {
+    display: flex;
+    gap: 0.5rem;
+
+    img {
+      width: 4rem;
+      height: 4rem;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 2px solid transparent;
+
+      &:hover,
+      &.active {
+        border-color: ${props => props.theme.colors.pistachio};
+      }
+    }
   }
 `;
 
@@ -71,12 +92,14 @@ export const ProductDetail = () => {
     const addItem = useCartStore(state => state.addItem);
     const toggleCart = useCartStore(state => state.toggleCart);
     const [qty, setQty] = useState(1);
+    const [selectedImage, setSelectedImage] = useState(product?.image || '');
 
     if (!product) return <div className="p-20 text-center">Product not found</div>;
 
     const handleAddToCart = () => {
+        const uniqueId = `${product.id}-${Date.now()}`; // Generate unique ID during the event
         addItem({
-            id: `${product.id}-${Date.now()}`,
+            id: uniqueId,
             productId: product.id,
             skuId: product.id,
             name: product.name,
@@ -154,7 +177,20 @@ export const ProductDetail = () => {
                     <div className="space-y-4">
                         <GlassCard opacity={0.1} className="p-3 md:p-4">
                             <ImageGallery>
-                                <img src={product.image} alt={product.name} />
+                                <div className="main-image">
+                                    <img src={selectedImage} alt={product.name} />
+                                </div>
+                                <div className="thumbnails">
+                                    {[product.image, ...(product.additionalImages || [])].map((img, index) => (
+                                        <img
+                                            key={index}
+                                            src={img}
+                                            alt={`${product.name} thumbnail ${index + 1}`}
+                                            className={selectedImage === img ? 'active' : ''}
+                                            onClick={() => setSelectedImage(img)}
+                                        />
+                                    ))}
+                                </div>
                             </ImageGallery>
                         </GlassCard>
                     </div>

@@ -91,6 +91,39 @@ export const FilterPanel = () => {
                     </FilterOption>
                 </div>
             </Section>
+
+            <Section>
+                <h4>Flavor Notes</h4>
+                <div className="flex flex-col gap-2">
+                    <FilterOption>
+                        <input type="checkbox" /> Citrus
+                    </FilterOption>
+                    <FilterOption>
+                        <input type="checkbox" /> Berry
+                    </FilterOption>
+                    <FilterOption>
+                        <input type="checkbox" /> Herbal
+                    </FilterOption>
+                    <FilterOption>
+                        <input type="checkbox" /> Spicy
+                    </FilterOption>
+                </div>
+            </Section>
+
+            <Section>
+                <h4>Availability</h4>
+                <div className="flex flex-col gap-2">
+                    <FilterOption>
+                        <input type="checkbox" /> In Stock
+                    </FilterOption>
+                    <FilterOption>
+                        <input type="checkbox" /> Pre-Order
+                    </FilterOption>
+                    <FilterOption>
+                        <input type="checkbox" /> Out of Stock
+                    </FilterOption>
+                </div>
+            </Section>
         </GlassCard>
     );
 };

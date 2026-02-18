@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { GlassButton } from './GlassButton';
 
 // Since we lack actual image assets for all slides, use placeholders
-import bannerImage from '../../assets/images/spacevakery-banner.jpeg';
+import bannerImage from '/src/assets/images/spacevakery-banner.jpeg';
 
 // Simple types
 interface Slide {

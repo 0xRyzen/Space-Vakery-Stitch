@@ -13,10 +13,14 @@ export interface Product {
     type?: string;
     rating?: number;
     isNew?: boolean;
-    // ... other fields if needed
+    effects?: string[]; // Top effects for flower/concentrates
+    terpenes?: string[]; // Terpenes list for flower/concentrates
+    potencyLevel?: number; // Numeric potency level (0-100)
+    feelLevel?: number; // Numeric feel level (0-100)
+    additionalImages?: string[]; // Additional images for the gallery
 }
 
-import ProductImg from '../assets/images/spacevakery-mascot.png';
+import ProductImg from '/src/assets/images/spacevakery-mascot.png';
 
 export const products: Product[] = [
     {
@@ -29,7 +33,12 @@ export const products: Product[] = [
         category: 'edibles',
         image: ProductImg,
         isNew: true,
-        type: 'edible'
+        type: 'edible',
+        effects: ['Euphoric', 'Calm', 'Creative'],
+        terpenes: ['Myrcene', 'Linalool', 'Caryophyllene'],
+        potencyLevel: 8,
+        feelLevel: 7,
+        additionalImages: ['image1.jpg', 'image2.jpg']
     },
     {
         id: '2',
@@ -38,10 +47,8 @@ export const products: Product[] = [
         description: 'Sativa • 5mg THC',
         potency: 'Sativa • 5mg THC',
         price: 24.00,
-        category: 'edibles',
         image: ProductImg,
-        isNew: true,
-        type: 'edible'
+        category: 'edibles'
     },
     {
         id: '3',
@@ -53,7 +60,12 @@ export const products: Product[] = [
         category: 'edibles',
         image: ProductImg,
         isNew: false,
-        type: 'edible'
+        type: 'edible',
+        effects: ['Relaxing', 'Sedative', 'Focus'],
+        terpenes: ['Terpinolene', 'Caryophyllene', 'Linalool'],
+        potencyLevel: 9,
+        feelLevel: 8,
+        additionalImages: ['image3.jpg', 'image4.jpg']
     },
     {
         id: '4',
@@ -65,7 +77,12 @@ export const products: Product[] = [
         category: 'edibles',
         image: ProductImg,
         isNew: true,
-        type: 'edible'
+        type: 'edible',
+        effects: ['Sedative', 'Calm', 'Focus'],
+        terpenes: ['Myrcene', 'Linalool', 'Caryophyllene'],
+        potencyLevel: 7,
+        feelLevel: 6,
+        additionalImages: ['image5.jpg', 'image6.jpg']
     },
     {
         id: '5',

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import bannerImg from '../assets/images/spacevakery-banner.jpeg'; // Use the requested asset
+import bannerImg from '/src/assets/images/spacevakery-banner.jpeg'; // Use the requested asset
 import { ProductCard } from '../components/commerce/ProductCard';
 import { PromoBanner } from '../components/ui/PromoBanner';
 import { products } from '../data/products';
@@ -8,7 +8,7 @@ import { categories } from '../data/categories';
 import type { Category } from '../data/categories';
 
 // Helper for image placeholders if not provided
-const PLACEHOLDER_IMG = '../assets/images/spacevakery-mascot.png';
+const PLACEHOLDER_IMG = '/src/assets/images/spacevakery-mascot.png';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -38,10 +38,9 @@ const Home = () => {
             type: 'promo',
             bgClass: 'bg-secondary/20',
             content: (
-                <div className="text-center z-10">
-                    <span className="font-sans uppercase tracking-[0.2em] text-sm mb-4 block">Seasonal</span>
-                    <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-8xl mb-4 sm:mb-6">Limited Batch</h2>
-                    <button onClick={() => navigate('/shop/limited')} className="px-8 py-3 border border-text-dark rounded-pill hover:bg-text-dark hover:text-white transition-colors">View Collection</button>
+                <div className="text-center">
+                    <h2 className="text-3xl font-bold">Limited Batch</h2>
+                    <p className="text-lg">Seasonal Drops Available Now</p>
                 </div>
             )
         },
@@ -49,10 +48,9 @@ const Home = () => {
             type: 'promo',
             bgClass: 'bg-primary/10',
             content: (
-                <div className="text-center z-10">
-                    <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-8xl mb-4 sm:mb-6">Oils / Resin / Batter</h2>
-                    <p className="font-sans text-base sm:text-lg max-w-md mx-auto mb-6 sm:mb-8 opacity-70 px-4">Potent concentrates extracted with care.</p>
-                    <button onClick={() => navigate('/shop/concentrates')} className="px-8 py-3 bg-text-dark text-white rounded-pill hover:opacity-90 transition-opacity">Shop Concentrates</button>
+                <div className="text-center">
+                    <h2 className="text-3xl font-bold">Oils & Extracts</h2>
+                    <p className="text-lg">Premium Quality for Your Rituals</p>
                 </div>
             )
         }
@@ -173,10 +171,18 @@ const Home = () => {
                     {categories.map((cat: Category, idx: number) => (
                         <div key={idx} onClick={() => navigate(`/shop/${cat.name.toLowerCase().replace(/ /g, '-')}`)} className="group glass-card rounded-xl p-4 flex flex-col items-center hover:-translate-y-1 transition-transform duration-300 cursor-pointer">
                             <div className={`w-full aspect-square mb-4 rounded-full overflow-hidden flex items-center justify-center ${cat.icon ? (cat.name === 'Flower' ? 'bg-primary/10' : 'bg-secondary/10') : 'bg-white/20'}`}>
-                                {cat.img ? (
-                                    <img alt={cat.name} className="w-full h-full object-cover opacity-90 group-hover:scale-110 transition-transform duration-500" src={PLACEHOLDER_IMG} />
+                                {cat.image ? (
+                                    <img
+                                        alt={cat.name}
+                                        className="w-full h-full object-cover opacity-90 group-hover:scale-110 transition-transform duration-500"
+                                        src={cat.image || PLACEHOLDER_IMG} /* Use placeholder if image is undefined */
+                                    />
                                 ) : (
-                                    <span className={`material-symbols-outlined text-4xl opacity-60 ${cat.name === 'Flower' ? 'text-primary' : 'text-primary'}`}>{cat.icon}</span>
+                                    <span
+                                        className={`material-symbols-outlined text-4xl opacity-60 ${cat.name === 'Flower' ? 'text-primary' : 'text-primary'}`}
+                                    >
+                                        {cat.icon}
+                                    </span>
                                 )}
                             </div>
                             <h3 className="font-display text-xl text-center">{cat.name}</h3>
