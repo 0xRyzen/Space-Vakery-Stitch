@@ -53,6 +53,23 @@ export const ThemeConfig = {
       glassBorder: 'rgba(241, 247, 237, 0.5)',
     },
   },
+  theme4: {
+    name: 'Sunset Coral',
+    colors: {
+      charcoal: '#2D1B2E',
+      midnight: '#2D1B2E',
+      oat: '#FFF5F0',
+      cream: '#FFF5F0',
+      pistachio: '#FF6B6B',
+      matcha: '#FF6B6B',
+      blush: '#FFB4A2',
+      apricot: '#FFB4A2',
+      plum: '#D64545',
+      glassWhite: 'rgba(255, 245, 240, 0.35)',
+      glassOat: 'rgba(255, 245, 240, 0.4)',
+      glassBorder: 'rgba(255, 245, 240, 0.5)',
+    },
+  },
 } as const;
 
 export type ThemeKey = keyof typeof ThemeConfig;
@@ -80,7 +97,7 @@ interface ThemeProviderProps {
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ 
   children, 
-  initialTheme = 'theme3' // Change this single variable to switch themes!
+  initialTheme = 'theme1'  // ← Only used if main.tsx doesn't pass a prop
 }) => {
   const [currentTheme, setCurrentTheme] = useState<ThemeKey>(initialTheme);
 
