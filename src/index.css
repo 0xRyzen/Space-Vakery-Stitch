@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Color System v2 CSS Variables - Space Vakery Olive Grove Palette */
+/* Dynamic Theme System - CSS Variables managed by ThemeProvider */
 :root {
-  /* Base */
+  /* Base colors - default to theme3 (Olive Grove) */
   --color-charcoal: #354F42;
   --color-midnight: #354F42;
   --color-oat: #F1F7ED;
@@ -21,6 +21,25 @@
   --glass-white: rgba(241, 247, 237, 0.35);
   --glass-oat: rgba(241, 247, 237, 0.4);
   --glass-border: rgba(241, 247, 237, 0.5);
+  
+  /* Derived colors for convenience */
+  --color-primary: var(--color-pistachio);
+  --color-secondary: var(--color-plum);
+  --color-text-dark: var(--color-charcoal);
+  --color-text-light: var(--color-oat);
+  --color-background-light: var(--color-cream);
+  --color-background-dark: var(--color-charcoal);
+}
+
+/* Smooth theme transitions - applies to all elements */
+* {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Disable transitions for specific properties that should change instantly */
+*:is(input, textarea, select, button):focus,
+*:hover {
+  transition-duration: 0.2s;
 }
 
 @layer base {

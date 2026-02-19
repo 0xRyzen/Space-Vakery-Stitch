@@ -8,26 +8,26 @@ export default {
     theme: {
         extend: {
             colors: {
-                // Space Vakery Olive Grove Palette
-                charcoal: '#354F42', // Deep forest green
-                midnight: '#354F42', // Deep forest green
-                oat: '#F1F7ED', // Soft honeydew
-                cream: '#F1F7ED', // Soft honeydew
-                pistachio: '#93C572', // Vibrant pistachio
-                matcha: '#93C572', // Vibrant pistachio
-                blush: '#C1D7AE', // Soft sage
-                apricot: '#C1D7AE', // Soft sage
-                plum: '#5E8C61', // Darker ivy green
+                // Dynamic theme colors using CSS variables
+                charcoal: 'var(--color-charcoal)',
+                midnight: 'var(--color-midnight)',
+                oat: 'var(--color-oat)',
+                cream: 'var(--color-cream)',
+                pistachio: 'var(--color-pistachio)',
+                matcha: 'var(--color-matcha)',
+                blush: 'var(--color-blush)',
+                apricot: 'var(--color-apricot)',
+                plum: 'var(--color-plum)',
                 // Derived colors
-                primary: '#93C572', // Pistachio
-                secondary: '#5E8C61', // Ivy Green
-                'text-dark': '#354F42', // Deep Forest
-                'text-light': '#F1F7ED', // Honeydew
-                'background-light': '#F1F7ED', // Honeydew
-                'background-dark': '#354F42', // Deep Forest
-                'card-light': '#F1F7ED',
-                'card-dark': '#354F42',
-                'glass-white': 'rgba(241, 247, 237, 0.4)',
+                primary: 'var(--color-primary)',
+                secondary: 'var(--color-secondary)',
+                'text-dark': 'var(--color-text-dark)',
+                'text-light': 'var(--color-text-light)',
+                'background-light': 'var(--color-background-light)',
+                'background-dark': 'var(--color-background-dark)',
+                'card-light': 'var(--color-background-light)',
+                'card-dark': 'var(--color-background-dark)',
+                'glass-white': 'var(--glass-white)',
             },
             fontFamily: {
                 display: ['"Cormorant Garamond"', 'serif'],
